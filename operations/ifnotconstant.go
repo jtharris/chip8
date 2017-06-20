@@ -13,14 +13,14 @@ func(incp IfNotConstantParser) Matches(opcode OpCode) bool {
 
 func(incp IfNotConstantParser) CreateOp(opcode OpCode) Operation {
 	return IfNotConstantOp{
-		register: int8((int16(opcode) & 0x0F00) >> 8),
-		value: int8(opcode & 0x00FF),
+		register: uint8(opcode & 0x0F00 >> 8),
+		value: uint8(opcode & 0x00FF),
 	}
 }
 
 type IfNotConstantOp struct {
-	register int8
-	value int8
+	register uint8
+	value uint8
 }
 func(o IfNotConstantOp) String() string {
 	return fmt.Sprintf("If V%X != %X", o.register, o.value)

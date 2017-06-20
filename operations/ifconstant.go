@@ -13,14 +13,14 @@ func(icp IfConstantParser) Matches(opcode OpCode) bool {
 
 func(icp IfConstantParser) CreateOp(opcode OpCode) Operation {
 	return IfConstantOp{
-		register: int8((int16(opcode) & 0x0F00) >> 8),
-		value: int8(opcode & 0x00FF),
+		register: uint8(opcode & 0x0F00 >> 8),
+		value: uint8(opcode & 0x00FF),
 	}
 }
 
 type IfConstantOp struct {
-	register int8
-	value int8
+	register uint8
+	value uint8
 }
 func(o IfConstantOp) String() string {
 	return fmt.Sprintf("If V%X == %X", o.register, o.value)

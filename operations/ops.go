@@ -30,6 +30,12 @@ func CreateOperation(opCode OpCode) Operation {
 		CallParser{},
 		IfConstantParser{},
 		IfNotConstantParser{},
+		IfRegisterParser{},
+		AssignConstantParser{},
+		AddConstantParser{},
+		AssignRegisterParser{},
+		BitwiseOrParser{},
+		BitwiseAndParser{},
 	}
 
 	for _, parser := range parsers {
