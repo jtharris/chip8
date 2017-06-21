@@ -13,14 +13,14 @@ func(acp AssignConstantParser) Matches(opcode OpCode) bool {
 
 func(acp AssignConstantParser) CreateOp(opcode OpCode) Operation {
 	return AssignConstantOp{
-		register: uint8(opcode & 0x0F00 >> 8),
-		value: uint8(opcode & 0x00FF),
+		register: byte(opcode & 0x0F00 >> 8),
+		value: byte(opcode & 0x00FF),
 	}
 }
 
 type AssignConstantOp struct {
-	register uint8
-	value uint8
+	register byte
+	value byte
 }
 func(o AssignConstantOp) String() string {
 	return fmt.Sprintf("Assign V%X = %X", o.register, o.value)

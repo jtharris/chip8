@@ -36,6 +36,15 @@ func CreateOperation(opCode OpCode) Operation {
 		AssignRegisterParser{},
 		BitwiseOrParser{},
 		BitwiseAndParser{},
+		BitwiseXorParser{},
+		AddRegisterParser{},
+		SubtractRegisterParser{},
+		ShiftRightParser{},
+		ReverseSubtractRegisterParser{},
+		SetIndexParser{},
+		DrawParser{},
+		DelayTimerParser{},
+		SetToDelayParser{},
 	}
 
 	for _, parser := range parsers {

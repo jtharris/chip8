@@ -14,14 +14,14 @@ func(arp AssignRegisterParser) Matches(opcode OpCode) bool {
 
 func(arp AssignRegisterParser) CreateOp(opcode OpCode) Operation {
 	return AssignRegisterOp{
-		register1: uint8(opcode & 0x0F00 >> 8),
-		register2: uint8(opcode & 0x00F0 >> 4),
+		register1: byte(opcode & 0x0F00 >> 8),
+		register2: byte(opcode & 0x00F0 >> 4),
 	}
 }
 
 type AssignRegisterOp struct {
-	register1 uint8
-	register2 uint8
+	register1 byte
+	register2 byte
 }
 func(o AssignRegisterOp) String() string {
 	return fmt.Sprintf("Assign Register V%X = V%X", o.register1, o.register2)

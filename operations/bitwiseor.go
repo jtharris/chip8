@@ -14,14 +14,14 @@ func(bop BitwiseOrParser) Matches(opcode OpCode) bool {
 
 func(bop BitwiseOrParser) CreateOp(opcode OpCode) Operation {
 	return BitwiseOrOp{
-		register1: uint8(opcode & 0x0F00 >> 8),
-		register2: uint8(opcode & 0x00F0 >> 4),
+		register1: byte(opcode & 0x0F00 >> 8),
+		register2: byte(opcode & 0x00F0 >> 4),
 	}
 }
 
 type BitwiseOrOp struct {
-	register1 uint8
-	register2 uint8
+	register1 byte
+	register2 byte
 }
 func(o BitwiseOrOp) String() string {
 	return fmt.Sprintf("V%X = V%X | V%X", o.register1, o.register1, o.register2)
