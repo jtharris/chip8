@@ -6,11 +6,11 @@ import (
 
 
 type ReturnParser struct {}
-func(rp ReturnParser) Matches(opcode OpCode) bool {
+func(p ReturnParser) Matches(opcode OpCode) bool {
 	return opcode == 0x00EE
 }
 
-func(rp ReturnParser) CreateOp(opcode OpCode) Operation {
+func(p ReturnParser) CreateOp(opcode OpCode) Operation {
 	return ReturnOp{}
 }
 

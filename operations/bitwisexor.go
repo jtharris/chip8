@@ -6,13 +6,13 @@ import (
 )
 
 type BitwiseXorParser struct {}
-func(bop BitwiseXorParser) Matches(opcode OpCode) bool {
+func(p BitwiseXorParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '3'
 }
 
-func(bop BitwiseXorParser) CreateOp(opcode OpCode) Operation {
+func(p BitwiseXorParser) CreateOp(opcode OpCode) Operation {
 	return BitwiseXorOp{
 		register1: byte(opcode & 0x0F00 >> 8),
 		register2: byte(opcode & 0x00F0 >> 4),

@@ -45,6 +45,12 @@ func CreateOperation(opCode OpCode) Operation {
 		DrawParser{},
 		DelayTimerParser{},
 		SetToDelayParser{},
+		RandomParser{},
+		IfNotKeyParser{},
+		SoundTimerParser{},
+		BinaryCodedDecimalParser{},
+		LoadRegistersParser{},
+		SpriteLocationParser{},
 	}
 
 	for _, parser := range parsers {

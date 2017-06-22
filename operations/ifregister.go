@@ -6,13 +6,13 @@ import (
 )
 
 type IfRegisterParser struct {}
-func(irp IfRegisterParser) Matches(opcode OpCode) bool {
+func(p IfRegisterParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '5' && opString[3] == '0'
 }
 
-func(irp IfRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p IfRegisterParser) CreateOp(opcode OpCode) Operation {
 	return IfRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

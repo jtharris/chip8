@@ -6,12 +6,12 @@ import (
 )
 
 type CallParser struct {}
-func(cp CallParser) Matches(opcode OpCode) bool {
+func(p CallParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '2'
 }
 
-func(cp CallParser) CreateOp(opcode OpCode) Operation {
+func(p CallParser) CreateOp(opcode OpCode) Operation {
 	return CallOp{
 		address: int16(opcode) & 0x0FFF,
 	}

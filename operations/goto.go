@@ -6,12 +6,12 @@ import (
 )
 
 type GotoParser struct {}
-func(gp GotoParser) Matches(opcode OpCode) bool {
+func(p GotoParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '1'
 }
 
-func(gp GotoParser) CreateOp(opcode OpCode) Operation {
+func(p GotoParser) CreateOp(opcode OpCode) Operation {
 	return GotoOp{
 		address: int16(opcode) & 0x0FFF,
 	}

@@ -6,13 +6,13 @@ import (
 )
 
 type SubtractRegisterParser struct {}
-func(irp SubtractRegisterParser) Matches(opcode OpCode) bool {
+func(p SubtractRegisterParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '5'
 }
 
-func(irp SubtractRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p SubtractRegisterParser) CreateOp(opcode OpCode) Operation {
 	return SubtractRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

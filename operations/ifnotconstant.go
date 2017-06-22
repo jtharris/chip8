@@ -6,12 +6,12 @@ import (
 )
 
 type IfNotConstantParser struct {}
-func(incp IfNotConstantParser) Matches(opcode OpCode) bool {
+func(p IfNotConstantParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '4'
 }
 
-func(incp IfNotConstantParser) CreateOp(opcode OpCode) Operation {
+func(p IfNotConstantParser) CreateOp(opcode OpCode) Operation {
 	return IfNotConstantOp{
 		register: uint8(opcode & 0x0F00 >> 8),
 		value: uint8(opcode & 0x00FF),

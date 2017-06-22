@@ -6,12 +6,12 @@ import (
 )
 
 type SetIndexParser struct {}
-func(sip SetIndexParser) Matches(opcode OpCode) bool {
+func(p SetIndexParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == 'a'
 }
 
-func(sip SetIndexParser) CreateOp(opcode OpCode) Operation {
+func(p SetIndexParser) CreateOp(opcode OpCode) Operation {
 	return SetIndexOp{
 		value: uint16(opcode) & 0x0FFF,
 	}

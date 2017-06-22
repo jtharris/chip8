@@ -6,11 +6,11 @@ import (
 
 
 type ClearParser struct {}
-func(cp ClearParser) Matches(opcode OpCode) bool {
+func(p ClearParser) Matches(opcode OpCode) bool {
 	return opcode == 0x00E0
 }
 
-func(cp ClearParser) CreateOp(opcode OpCode) Operation {
+func(p ClearParser) CreateOp(opcode OpCode) Operation {
 	return ClearOp{}
 }
 

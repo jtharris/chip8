@@ -7,11 +7,11 @@ import (
 
 
 type DrawParser struct {}
-func(cp DrawParser) Matches(opcode OpCode) bool {
+func(p DrawParser) Matches(opcode OpCode) bool {
 	return opcode.String()[0] == 'd'
 }
 
-func(cp DrawParser) CreateOp(opcode OpCode) Operation {
+func(p DrawParser) CreateOp(opcode OpCode) Operation {
 	return DrawOp{
 		xRegister: byte(opcode & 0x0F00 >> 8),
 		yRegister: byte(opcode & 0x00F0 >> 4),

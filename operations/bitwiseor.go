@@ -6,13 +6,13 @@ import (
 )
 
 type BitwiseOrParser struct {}
-func(bop BitwiseOrParser) Matches(opcode OpCode) bool {
+func(p BitwiseOrParser) Matches(opcode OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '1'
 }
 
-func(bop BitwiseOrParser) CreateOp(opcode OpCode) Operation {
+func(p BitwiseOrParser) CreateOp(opcode OpCode) Operation {
 	return BitwiseOrOp{
 		register1: byte(opcode & 0x0F00 >> 8),
 		register2: byte(opcode & 0x00F0 >> 4),
