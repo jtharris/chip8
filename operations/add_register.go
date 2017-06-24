@@ -7,7 +7,6 @@ import (
 
 type AddRegisterParser struct {}
 func(p AddRegisterParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '4'
 }
@@ -24,9 +23,13 @@ type AddRegisterOp struct {
 	register2 byte
 }
 func(o AddRegisterOp) String() string {
-	return fmt.Sprintf("Adding V%X += V%X", o.register1, o.register2)
+	return fmt.Sprintf("V%X += V%X", o.register1, o.register2)
 }
 
 func(o AddRegisterOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	// Set the overflow register first
+	machine.Registers[0xF] = byte((uint16(machine.Registers[o.register1]) + uint16(machine.Registers[o.register2])) >> 8)
+
+	// Then add the value
+	machine.Registers[o.register1] += machine.Registers[o.register2]
 }
