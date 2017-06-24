@@ -29,7 +29,7 @@ func TestAssignConstantParser_CreateOp(t *testing.T) {
 	assert.Equal(t, op, parser.CreateOp(0x7D15))
 }
 
-func TestAssignRegisterOp_String(t *testing.T) {
+func TestAssignConstantOp_String(t *testing.T) {
 	op := AssignConstantOp{
 		register: 0x3,
 		value: 0xFE,
