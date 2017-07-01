@@ -20,9 +20,13 @@ type BinaryCodedDecimalOp struct {
 	register byte
 }
 func(o BinaryCodedDecimalOp) String() string {
-	return fmt.Sprintf("Set BCD(V%X)", o.register)
+	return fmt.Sprintf("BCD(V%X)", o.register)
 }
 
 func(o BinaryCodedDecimalOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	val := machine.Registers[o.register]
+
+	machine.Memory[machine.IndexRegister] = val / 100
+	machine.Memory[machine.IndexRegister + 1] = (val / 10) % 10
+	machine.Memory[machine.IndexRegister + 2] = val % 10
 }

@@ -7,7 +7,6 @@ import (
 
 type BitwiseXorParser struct {}
 func(p BitwiseXorParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '3'
 }
@@ -28,5 +27,5 @@ func(o BitwiseXorOp) String() string {
 }
 
 func(o BitwiseXorOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.Registers[o.register1] ^= machine.Registers[o.register2]
 }
