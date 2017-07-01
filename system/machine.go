@@ -6,8 +6,11 @@ type VirtualMachine struct {
 	Registers [16]byte
 	Stack [64]byte
 
-	ProgramCounter int
-	IndexRegister int16
+	ProgramCounter uint
+	IndexRegister uint16
+
+	DelayTimer byte
+	SoundTimer byte
 
 	// TODO:  Figure out what this should be
 	Display int

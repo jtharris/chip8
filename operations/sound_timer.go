@@ -12,17 +12,17 @@ func(p SoundTimerParser) Matches(opcode OpCode) bool {
 
 func(p SoundTimerParser) CreateOp(opcode OpCode) Operation {
 	return SoundTimerOp{
-		value: byte(opcode & 0x0F00 >> 8),
+		register: byte(opcode & 0x0F00 >> 8),
 	}
 }
 
 type SoundTimerOp struct {
-	value byte
+	register byte
 }
 func(o SoundTimerOp) String() string {
-	return fmt.Sprintf("Set sound timer:  %X", o.value)
+	return fmt.Sprintf("sound_timer = V%X", o.register)
 }
 
 func(o SoundTimerOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.SoundTimer = machine.Registers[o.register]
 }

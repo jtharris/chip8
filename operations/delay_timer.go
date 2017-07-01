@@ -12,17 +12,17 @@ func(p DelayTimerParser) Matches(opcode OpCode) bool {
 
 func(p DelayTimerParser) CreateOp(opcode OpCode) Operation {
 	return DelayTimerOp{
-		value: byte(opcode & 0x0F00 >> 8),
+		register: byte(opcode & 0x0F00 >> 8),
 	}
 }
 
 type DelayTimerOp struct {
-	value byte
+	register byte
 }
 func(o DelayTimerOp) String() string {
-	return fmt.Sprintf("Set delay timer:  %X", o.value)
+	return fmt.Sprintf("delay_timer = V%X", o.register)
 }
 
 func(o DelayTimerOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.DelayTimer = machine.Registers[o.register]
 }
