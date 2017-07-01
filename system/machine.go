@@ -6,7 +6,7 @@ type VirtualMachine struct {
 	Registers [16]byte
 	Stack [64]byte
 
-	ProgramCounter uint
+	ProgramCounter uint16
 	IndexRegister uint16
 
 	DelayTimer byte

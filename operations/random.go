@@ -3,6 +3,7 @@ package operations
 import (
 	"fmt"
 	"chip8/system"
+	"math/rand"
 )
 
 type RandomParser struct {}
@@ -26,5 +27,5 @@ func(o RandomOp) String() string {
 }
 
 func(o RandomOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.Registers[o.register] = byte(rand.Int()) & o.value
 }
