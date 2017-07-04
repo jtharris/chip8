@@ -7,7 +7,6 @@ import (
 
 type IfConstantParser struct {}
 func(p IfConstantParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '3'
 }
 
@@ -27,5 +26,7 @@ func(o IfConstantOp) String() string {
 }
 
 func(o IfConstantOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	if (machine.Registers[o.register] == o.value) {
+		machine.ProgramCounter++
+	}
 }

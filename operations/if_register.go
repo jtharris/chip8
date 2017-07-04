@@ -7,7 +7,6 @@ import (
 
 type IfRegisterParser struct {}
 func(p IfRegisterParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '5' && opString[3] == '0'
 }
@@ -28,5 +27,7 @@ func(o IfRegisterOp) String() string {
 }
 
 func(o IfRegisterOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	if (machine.Registers[o.register1] == machine.Registers[o.register2]) {
+		machine.ProgramCounter++
+	}
 }

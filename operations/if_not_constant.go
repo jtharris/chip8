@@ -7,7 +7,6 @@ import (
 
 type IfNotConstantParser struct {}
 func(p IfNotConstantParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '4'
 }
 
@@ -27,5 +26,7 @@ func(o IfNotConstantOp) String() string {
 }
 
 func(o IfNotConstantOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	if (machine.Registers[o.register] != o.value) {
+		machine.ProgramCounter++
+	}
 }
