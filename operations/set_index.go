@@ -25,5 +25,5 @@ func(o SetIndexOp) String() string {
 }
 
 func(o SetIndexOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.IndexRegister = o.value
 }

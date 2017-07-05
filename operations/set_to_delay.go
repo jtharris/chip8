@@ -20,9 +20,9 @@ type SetToDelayOp struct {
 	register byte
 }
 func(o SetToDelayOp) String() string {
-	return fmt.Sprintf("Set register %X to delay timer", o.register)
+	return fmt.Sprintf("V%X = delay_timer", o.register)
 }
 
 func(o SetToDelayOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.Registers[o.register] = machine.DelayTimer
 }
