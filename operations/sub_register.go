@@ -7,7 +7,6 @@ import (
 
 type SubtractRegisterParser struct {}
 func(p SubtractRegisterParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '5'
 }
@@ -28,5 +27,14 @@ func(o SubtractRegisterOp) String() string {
 }
 
 func(o SubtractRegisterOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	val1 := machine.Registers[o.register1]
+	val2 := machine.Registers[o.register2]
+
+	if val1 < val2 {
+		machine.Registers[0xF] = 0x0
+	} else {
+		machine.Registers[0xF] = 0x1
+	}
+
+	machine.Registers[o.register1] = val1 - val2
 }
