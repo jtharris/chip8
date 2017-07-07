@@ -7,7 +7,6 @@ import (
 
 type ShiftRightParser struct {}
 func(p ShiftRightParser) Matches(opcode OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '6'
 }
@@ -26,5 +25,8 @@ func(o ShiftRightOp) String() string {
 }
 
 func(o ShiftRightOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	val := machine.Registers[o.register]
+
+	machine.Registers[0xF] = val & 0x01
+	machine.Registers[o.register] = val >> 1
 }
