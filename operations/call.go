@@ -13,17 +13,21 @@ func(p CallParser) Matches(opcode OpCode) bool {
 
 func(p CallParser) CreateOp(opcode OpCode) Operation {
 	return CallOp{
-		address: int16(opcode) & 0x0FFF,
+		address: uint16(opcode) & 0x0FFF,
 	}
 }
 
 type CallOp struct {
-	address int16
+	address uint16
 }
 func(o CallOp) String() string {
 	return fmt.Sprint("Call subroute at:  ", o.address)
 }
 
 func(o CallOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	// Push the current address onto the call stack
+	machine.Stack = append(machine.Stack, machine.ProgramCounter)
+
+	// Set the program counter
+	machine.ProgramCounter = o.address
 }

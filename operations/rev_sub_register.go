@@ -28,5 +28,14 @@ func(o ReverseSubtractRegisterOp) String() string {
 }
 
 func(o ReverseSubtractRegisterOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	val1 := machine.Registers[o.register1]
+	val2 := machine.Registers[o.register2]
+
+	if val1 > val2 {
+		machine.Registers[0xF] = 0x0
+	} else {
+		machine.Registers[0xF] = 0x1
+	}
+
+	machine.Registers[o.register1] = val2 - val1
 }
