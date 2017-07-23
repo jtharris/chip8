@@ -20,5 +20,8 @@ func(o ReturnOp) String() string {
 }
 
 func(o ReturnOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	lastItem := len(machine.Stack) - 1
+
+	machine.ProgramCounter = machine.Stack[lastItem]
+	machine.Stack = machine.Stack[:lastItem]
 }

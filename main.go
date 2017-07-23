@@ -3,13 +3,15 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
+	//"os"
 	"chip8/operations"
+	"chip8/system"
 )
 
 func main() {
 	// TODO:  All types of error checking
-	read(os.Args[1])
+	//read(os.Args[1])
+	system.Start()
 }
 
 func read(fileName string) {
