@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	//"os"
+	"os"
 	"chip8/operations"
-	"chip8/system"
+	//"chip8/system"
 )
 
 func main() {
 	// TODO:  All types of error checking
-	//read(os.Args[1])
-	system.Start()
+	read(os.Args[1])
+	//system.Start()
 }
 
 func read(fileName string) {
@@ -27,8 +27,8 @@ func read(fileName string) {
 
 		op := operations.CreateOperation(opCode)
 
-		fmt.Print("Opcode ")
-		fmt.Print(i / 2)
+		fmt.Print("Memory: ")
+		fmt.Printf("%X", 512 + i)
 		fmt.Print(":  ")
 		fmt.Print(opCode.String())
 		fmt.Print(" - ")

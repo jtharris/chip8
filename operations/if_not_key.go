@@ -24,5 +24,7 @@ func(o IfNotKeyOp) String() string {
 }
 
 func(o IfNotKeyOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	if !machine.Keyboard[machine.Registers[o.register]] {
+		machine.ProgramCounter++
+	}
 }

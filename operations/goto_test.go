@@ -34,11 +34,12 @@ func TestGotoOp_String(t *testing.T) {
 func TestGotoOp_Execute(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	op := GotoOp{address: 0x0A29}
+	op := GotoOp{address: 0x02C9}
 
 	// When
 	op.Execute(&vm)
 
 	// Then
-	assert.Equal(t, uint16(0x0A29), vm.ProgramCounter)
+	// Be sure to remove the 0x0200 offset
+	assert.Equal(t, uint16(0x00C9), vm.ProgramCounter)
 }

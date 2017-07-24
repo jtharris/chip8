@@ -12,7 +12,8 @@ type VirtualMachine struct {
 	DelayTimer byte
 	SoundTimer byte
 
-	// TODO:  Figure out what this should be
-	Display int
+	// Represents the state of key presses
+	Keyboard [16]bool
+	Pixels [32]int64
 }
 

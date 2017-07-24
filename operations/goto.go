@@ -24,5 +24,5 @@ func(o GotoOp) String() string {
 }
 
 func(o GotoOp) Execute(machine *system.VirtualMachine) {
-	machine.ProgramCounter = o.address
+	machine.ProgramCounter = o.address - 0x200
 }
