@@ -26,6 +26,12 @@ func TestCallParser_CreateOp(t *testing.T) {
 }
 
 func TestCallOp_String(t *testing.T) {
+	op := CallOp{address: 0x027A}
+
+	assert.Equal(t, "Call subroutine at:  27A", op.String())
+}
+
+func TestCallOp_Execute(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
 	vm.ProgramCounter = 0x0280

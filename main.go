@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"chip8/operations"
 	//"chip8/system"
+	"chip8/operations"
 )
 
 func main() {

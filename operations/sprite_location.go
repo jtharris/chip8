@@ -20,9 +20,10 @@ type SpriteLocationOp struct {
 	register byte
 }
 func(o SpriteLocationOp) String() string {
-	return fmt.Sprintf("I = spriteAddress(V%X)", o.register)
+	return fmt.Sprintf("I = sprite_address(V%X)", o.register)
 }
 
 func(o SpriteLocationOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	// Each character is 5 bytes wide
+	machine.IndexRegister = uint16(machine.Registers[o.register]) * 5
 }

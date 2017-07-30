@@ -21,7 +21,7 @@ type CallOp struct {
 	address uint16
 }
 func(o CallOp) String() string {
-	return fmt.Sprint("Call subroute at:  ", o.address)
+	return fmt.Sprintf("Call subroutine at:  %X", o.address)
 }
 
 func(o CallOp) Execute(machine *system.VirtualMachine) {
