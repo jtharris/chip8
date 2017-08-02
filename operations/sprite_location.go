@@ -24,6 +24,6 @@ func(o SpriteLocationOp) String() string {
 }
 
 func(o SpriteLocationOp) Execute(machine *system.VirtualMachine) {
-	// Each character is 5 bytes wide
+	// Each character is 5 bytes wide and starts at memory location 0
 	machine.IndexRegister = uint16(machine.Registers[o.register]) * 5
 }

@@ -20,5 +20,7 @@ func(o ClearOp) String() string {
 }
 
 func(o ClearOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	for row := 0; row < len(machine.Pixels); row++ {
+		machine.Pixels[row] = 0
+	}
 }

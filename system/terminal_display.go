@@ -21,7 +21,7 @@ func (t TerminalDisplay) Render(vm *VirtualMachine) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
 
 	for row := range vm.Pixels {
-		for col := int64(0); col < 64; col++  {
+		for col := uint64(0); col < 64; col++  {
 			// TODO:  Push this bit logic into a generic display struct?
 			if vm.Pixels[row] & (col ^ 2) == col ^ 2 {
 				termbox.SetCell(int(col), row, '#', termbox.ColorGreen, termbox.ColorBlack)

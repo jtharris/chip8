@@ -24,10 +24,26 @@ type DrawOp struct {
 	yRegister byte
 	height byte
 }
+
 func(o DrawOp) String() string {
 	return fmt.Sprintf("Draw Screen (V%X, V%X) Height: %X", o.xRegister, o.yRegister, o.height)
 }
 
 func(o DrawOp) Execute(machine *system.VirtualMachine) {
-	// TODO:  Get this going
+	machine.Registers[0xF] = 0	// start with this as the default position
+	xPos := machine.Registers[o.xRegister]
+	yPos := machine.Registers[o.yRegister]
+
+	for row := byte(0); row < o.height; row++ {
+		y := yPos + row
+		sprite := uint64(machine.Memory[machine.IndexRegister + uint16(row)]) << (56 - xPos)
+
+		// If any 'on' pixels are going to be flipped, then set
+		// VF to 1 per the spec
+		if sprite & machine.Pixels[y] > 0 {
+			machine.Registers[0xF] = 1
+		}
+
+		machine.Pixels[y] ^= sprite
+	}
 }

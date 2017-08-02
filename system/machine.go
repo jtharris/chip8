@@ -14,7 +14,7 @@ type VirtualMachine struct {
 
 	// Represents the state of key presses
 	Keyboard [16]bool
-	Pixels [32]int64
+	Pixels [32]uint64
 }
 
 func NewVirtualMachine() VirtualMachine {
