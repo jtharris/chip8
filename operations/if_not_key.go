@@ -6,11 +6,11 @@ import (
 )
 
 type IfNotKeyParser struct {}
-func(p IfNotKeyParser) Matches(opcode OpCode) bool {
+func(p IfNotKeyParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'e' && byte(opcode) == 0xA1
 }
 
-func(p IfNotKeyParser) CreateOp(opcode OpCode) Operation {
+func(p IfNotKeyParser) CreateOp(opcode system.OpCode) Operation {
 	return IfNotKeyOp{
 		register: uint8(opcode & 0x0F00 >> 8),
 	}
@@ -25,6 +25,7 @@ func(o IfNotKeyOp) String() string {
 
 func(o IfNotKeyOp) Execute(machine *system.VirtualMachine) {
 	if !machine.Keyboard[machine.Registers[o.register]] {
-		machine.ProgramCounter++
+		// TODO:  Move this
+		machine.ProgramCounter += 2
 	}
 }

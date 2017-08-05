@@ -42,6 +42,6 @@ func TestCallOp_Execute(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	assert.Equal(t, uint16(0x0800), vm.ProgramCounter)
+	assert.Equal(t, uint16(0x07FE), vm.ProgramCounter)
 	assert.Equal(t, []uint16{0x0280}, vm.Stack)
 }

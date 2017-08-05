@@ -6,11 +6,11 @@ import (
 )
 
 type IfNotConstantParser struct {}
-func(p IfNotConstantParser) Matches(opcode OpCode) bool {
+func(p IfNotConstantParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == '4'
 }
 
-func(p IfNotConstantParser) CreateOp(opcode OpCode) Operation {
+func(p IfNotConstantParser) CreateOp(opcode system.OpCode) Operation {
 	return IfNotConstantOp{
 		register: uint8(opcode & 0x0F00 >> 8),
 		value: uint8(opcode & 0x00FF),
@@ -27,6 +27,7 @@ func(o IfNotConstantOp) String() string {
 
 func(o IfNotConstantOp) Execute(machine *system.VirtualMachine) {
 	if machine.Registers[o.register] != o.value {
-		machine.ProgramCounter++
+		// TODO:  Move this
+		machine.ProgramCounter += 2
 	}
 }

@@ -6,12 +6,12 @@ import (
 )
 
 type CallParser struct {}
-func(p CallParser) Matches(opcode OpCode) bool {
+func(p CallParser) Matches(opcode system.OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	return opcode.String()[0] == '2'
 }
 
-func(p CallParser) CreateOp(opcode OpCode) Operation {
+func(p CallParser) CreateOp(opcode system.OpCode) Operation {
 	return CallOp{
 		address: uint16(opcode) & 0x0FFF,
 	}
@@ -29,5 +29,5 @@ func(o CallOp) Execute(machine *system.VirtualMachine) {
 	machine.Stack = append(machine.Stack, machine.ProgramCounter)
 
 	// Set the program counter
-	machine.ProgramCounter = o.address
+	machine.ProgramCounter = o.address - 2
 }

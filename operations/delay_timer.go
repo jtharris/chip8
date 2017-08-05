@@ -6,11 +6,11 @@ import (
 )
 
 type DelayTimerParser struct {}
-func(p DelayTimerParser) Matches(opcode OpCode) bool {
+func(p DelayTimerParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'f' && byte(opcode) == 0x15
 }
 
-func(p DelayTimerParser) CreateOp(opcode OpCode) Operation {
+func(p DelayTimerParser) CreateOp(opcode system.OpCode) Operation {
 	return DelayTimerOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

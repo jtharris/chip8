@@ -6,11 +6,11 @@ import (
 )
 
 type BinaryCodedDecimalParser struct {}
-func(p BinaryCodedDecimalParser) Matches(opcode OpCode) bool {
+func(p BinaryCodedDecimalParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'f' && byte(opcode) == 0x33
 }
 
-func(p BinaryCodedDecimalParser) CreateOp(opcode OpCode) Operation {
+func(p BinaryCodedDecimalParser) CreateOp(opcode system.OpCode) Operation {
 	return BinaryCodedDecimalOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

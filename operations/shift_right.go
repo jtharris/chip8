@@ -6,12 +6,12 @@ import (
 )
 
 type ShiftRightParser struct {}
-func(p ShiftRightParser) Matches(opcode OpCode) bool {
+func(p ShiftRightParser) Matches(opcode system.OpCode) bool {
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '6'
 }
 
-func(p ShiftRightParser) CreateOp(opcode OpCode) Operation {
+func(p ShiftRightParser) CreateOp(opcode system.OpCode) Operation {
 	return ShiftRightOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

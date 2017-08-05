@@ -6,11 +6,11 @@ import (
 )
 
 type SoundTimerParser struct {}
-func(p SoundTimerParser) Matches(opcode OpCode) bool {
+func(p SoundTimerParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'f' && byte(opcode) == 0x18
 }
 
-func(p SoundTimerParser) CreateOp(opcode OpCode) Operation {
+func(p SoundTimerParser) CreateOp(opcode system.OpCode) Operation {
 	return SoundTimerOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

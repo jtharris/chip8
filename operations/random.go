@@ -7,11 +7,11 @@ import (
 )
 
 type RandomParser struct {}
-func(p RandomParser) Matches(opcode OpCode) bool {
+func(p RandomParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'c'
 }
 
-func(p RandomParser) CreateOp(opcode OpCode) Operation {
+func(p RandomParser) CreateOp(opcode system.OpCode) Operation {
 	return RandomOp{
 		register: byte(opcode & 0x0F00 >> 8),
 		value: byte(opcode),

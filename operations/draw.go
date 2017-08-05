@@ -7,11 +7,11 @@ import (
 
 
 type DrawParser struct {}
-func(p DrawParser) Matches(opcode OpCode) bool {
+func(p DrawParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'd'
 }
 
-func(p DrawParser) CreateOp(opcode OpCode) Operation {
+func(p DrawParser) CreateOp(opcode system.OpCode) Operation {
 	return DrawOp{
 		xRegister: byte(opcode & 0x0F00 >> 8),
 		yRegister: byte(opcode & 0x00F0 >> 4),
@@ -36,7 +36,14 @@ func(o DrawOp) Execute(machine *system.VirtualMachine) {
 
 	for row := byte(0); row < o.height; row++ {
 		y := yPos + row
-		sprite := uint64(machine.Memory[machine.IndexRegister + uint16(row)]) << (56 - xPos)
+		sprite := uint64(machine.Memory[machine.IndexRegister + uint16(row)])
+		offset := 56 - int(xPos)
+
+		if offset > 0 {
+			sprite = sprite << uint(offset)
+		} else {
+			sprite = sprite >> uint(-offset)
+		}
 
 		// If any 'on' pixels are going to be flipped, then set
 		// VF to 1 per the spec

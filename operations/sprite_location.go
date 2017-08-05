@@ -6,11 +6,11 @@ import (
 )
 
 type SpriteLocationParser struct {}
-func(p SpriteLocationParser) Matches(opcode OpCode) bool {
+func(p SpriteLocationParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'f' && byte(opcode) == 0x29
 }
 
-func(p SpriteLocationParser) CreateOp(opcode OpCode) Operation {
+func(p SpriteLocationParser) CreateOp(opcode system.OpCode) Operation {
 	return SpriteLocationOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

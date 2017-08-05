@@ -6,12 +6,12 @@ import (
 )
 
 type SubtractRegisterParser struct {}
-func(p SubtractRegisterParser) Matches(opcode OpCode) bool {
+func(p SubtractRegisterParser) Matches(opcode system.OpCode) bool {
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '5'
 }
 
-func(p SubtractRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p SubtractRegisterParser) CreateOp(opcode system.OpCode) Operation {
 	return SubtractRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

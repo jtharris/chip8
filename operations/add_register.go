@@ -6,12 +6,12 @@ import (
 )
 
 type AddRegisterParser struct {}
-func(p AddRegisterParser) Matches(opcode OpCode) bool {
+func(p AddRegisterParser) Matches(opcode system.OpCode) bool {
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '4'
 }
 
-func(p AddRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p AddRegisterParser) CreateOp(opcode system.OpCode) Operation {
 	return AddRegisterOp{
 		register1: byte(opcode & 0x0F00 >> 8),
 		register2: byte(opcode & 0x00F0 >> 4),

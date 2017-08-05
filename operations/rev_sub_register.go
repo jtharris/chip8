@@ -6,13 +6,13 @@ import (
 )
 
 type ReverseSubtractRegisterParser struct {}
-func(p ReverseSubtractRegisterParser) Matches(opcode OpCode) bool {
+func(p ReverseSubtractRegisterParser) Matches(opcode system.OpCode) bool {
 	// TODO:  There is probably a more efficient way to do this
 	opString := opcode.String()
 	return opString[0] == '8' && opString[3] == '7'
 }
 
-func(p ReverseSubtractRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p ReverseSubtractRegisterParser) CreateOp(opcode system.OpCode) Operation {
 	return ReverseSubtractRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

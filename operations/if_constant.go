@@ -6,11 +6,11 @@ import (
 )
 
 type IfConstantParser struct {}
-func(p IfConstantParser) Matches(opcode OpCode) bool {
+func(p IfConstantParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == '3'
 }
 
-func(p IfConstantParser) CreateOp(opcode OpCode) Operation {
+func(p IfConstantParser) CreateOp(opcode system.OpCode) Operation {
 	return IfConstantOp{
 		register: uint8(opcode & 0x0F00 >> 8),
 		value: uint8(opcode & 0x00FF),
@@ -26,7 +26,8 @@ func(o IfConstantOp) String() string {
 }
 
 func(o IfConstantOp) Execute(machine *system.VirtualMachine) {
-	if (machine.Registers[o.register] == o.value) {
-		machine.ProgramCounter++
+	if machine.Registers[o.register] == o.value {
+		// TODO:  Move this incrementing behavior into VirtualMachine
+		machine.ProgramCounter += 2
 	}
 }

@@ -1,17 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
-	//"chip8/system"
+	"chip8/system"
 	"chip8/operations"
+	"fmt"
+	"time"
 )
 
 func main() {
 	// TODO:  All types of error checking
 	read(os.Args[1])
-	//system.Start()
 }
 
 func read(fileName string) {
@@ -21,17 +21,59 @@ func read(fileName string) {
 		panic(err)
 	}
 
-	for i :=0; i < len(data); i += 2 {
-		bytes := data[i:i + 2]
-		var opCode operations.OpCode = operations.OpCode((uint16(bytes[0]) << 8) + uint16(bytes[1]))
+	vm := system.NewVirtualMachine()
+	vm.Load(data)
 
-		op := operations.CreateOperation(opCode)
+	display := system.TerminalDisplay{}
+	display.Initialize()
 
-		fmt.Print("Memory: ")
-		fmt.Printf("%X", 512 + i)
-		fmt.Print(":  ")
-		fmt.Print(opCode.String())
-		fmt.Print(" - ")
-		fmt.Println(op.String())
+	go DisplayLoop(&vm, &display)
+	Run(&vm, &display)
+	//PrintProgram(&vm)
+}
+
+func Run(vm *system.VirtualMachine, display system.Display) {
+	// TODO:  Very naive implementation to get going
+	ticker := time.NewTicker(time.Microsecond * 16667)	// Running at 60 Hz
+
+	for range ticker.C {
+		opcode := vm.CurrentOpcode()
+		op := operations.CreateOperation(opcode)
+
+		display.UpdateKeys(vm)
+		op.Execute(vm)
+
+		// TODO:  Move to a Cycle method?
+		// Decrement timers
+		if vm.DelayTimer > 0 {
+			vm.DelayTimer--
+		}
+
+		if vm.SoundTimer > 0 {
+			vm.SoundTimer--
+		}
+
+		vm.ProgramCounter += 2
+	}
+}
+
+func DisplayLoop(vm *system.VirtualMachine, display system.Display) {
+	ticker := time.NewTicker(time.Millisecond * 500)  // Very slow refresh rate... 4Hz
+
+	for range ticker.C {
+		display.Render(vm)
+	}
+}
+
+func PrintProgram(vm *system.VirtualMachine) {
+	for mem := vm.ProgramCounter; mem < uint16(len(vm.Memory)); mem +=2 {
+		opcode := vm.OpCodeAt(mem)
+
+		if opcode == 0x0 {
+			return
+		}
+
+		fmt.Printf("%X:  ", mem)
+		fmt.Println(operations.CreateOperation(opcode).String())
 	}
 }

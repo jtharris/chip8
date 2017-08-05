@@ -6,12 +6,12 @@ import (
 )
 
 type IfRegisterParser struct {}
-func(p IfRegisterParser) Matches(opcode OpCode) bool {
+func(p IfRegisterParser) Matches(opcode system.OpCode) bool {
 	opString := opcode.String()
 	return opString[0] == '5' && opString[3] == '0'
 }
 
-func(p IfRegisterParser) CreateOp(opcode OpCode) Operation {
+func(p IfRegisterParser) CreateOp(opcode system.OpCode) Operation {
 	return IfRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),
@@ -28,6 +28,7 @@ func(o IfRegisterOp) String() string {
 
 func(o IfRegisterOp) Execute(machine *system.VirtualMachine) {
 	if (machine.Registers[o.register1] == machine.Registers[o.register2]) {
-		machine.ProgramCounter++
+		// TODO:  Refactor this
+		machine.ProgramCounter += 2
 	}
 }

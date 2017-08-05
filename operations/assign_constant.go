@@ -6,11 +6,11 @@ import (
 )
 
 type AssignConstantParser struct {}
-func(p AssignConstantParser) Matches(opcode OpCode) bool {
+func(p AssignConstantParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == '6'
 }
 
-func(p AssignConstantParser) CreateOp(opcode OpCode) Operation {
+func(p AssignConstantParser) CreateOp(opcode system.OpCode) Operation {
 	return AssignConstantOp{
 		register: byte(opcode & 0x0F00 >> 8),
 		value: byte(opcode & 0x00FF),

@@ -6,11 +6,11 @@ import (
 )
 
 type GotoParser struct {}
-func(p GotoParser) Matches(opcode OpCode) bool {
+func(p GotoParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == '1'
 }
 
-func(p GotoParser) CreateOp(opcode OpCode) Operation {
+func(p GotoParser) CreateOp(opcode system.OpCode) Operation {
 	return GotoOp{
 		address: uint16(opcode) & 0x0FFF,
 	}
@@ -24,5 +24,5 @@ func(o GotoOp) String() string {
 }
 
 func(o GotoOp) Execute(machine *system.VirtualMachine) {
-	machine.ProgramCounter = o.address - 0x200
+	machine.ProgramCounter = o.address - 2
 }

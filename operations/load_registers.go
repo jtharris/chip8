@@ -6,11 +6,11 @@ import (
 )
 
 type LoadRegistersParser struct {}
-func(p LoadRegistersParser) Matches(opcode OpCode) bool {
+func(p LoadRegistersParser) Matches(opcode system.OpCode) bool {
 	return opcode.String()[0] == 'f' && byte(opcode) == 0x65
 }
 
-func(p LoadRegistersParser) CreateOp(opcode OpCode) Operation {
+func(p LoadRegistersParser) CreateOp(opcode system.OpCode) Operation {
 	return LoadRegistersOp{
 		topRegister: byte(opcode & 0x0F00 >> 8),
 	}

@@ -40,6 +40,5 @@ func TestGotoOp_Execute(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	// Be sure to remove the 0x0200 offset
-	assert.Equal(t, uint16(0x00C9), vm.ProgramCounter)
+	assert.Equal(t, uint16(0x02C7), vm.ProgramCounter)
 }

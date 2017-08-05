@@ -1,5 +1,16 @@
 package system
 
+import (
+	"encoding/hex"
+	"fmt"
+)
+
+// TODO:  Is this the right place for this?
+type OpCode uint16
+func(o OpCode) String() string {
+	bytes := []byte{byte(uint16(o) >> 8), byte(o)}
+	return hex.EncodeToString(bytes)
+}
 
 type VirtualMachine struct {
 	Memory [4096]byte
@@ -14,6 +25,7 @@ type VirtualMachine struct {
 
 	// Represents the state of key presses
 	Keyboard [16]bool
+	// The state of the pixels, rendered to a display
 	Pixels [32]uint64
 }
 
@@ -40,9 +52,19 @@ func (vm *VirtualMachine) Load(data []byte) {
 	vm.ProgramCounter = 512
 }
 
-func (vm *VirtualMachine) Run() {
-	// TODO:  Very naive implementation to get going
+func (vm *VirtualMachine) OpCodeAt(address uint16) OpCode {
+	firstByte := uint16(vm.Memory[address])
+	secondByte := uint16(vm.Memory[address + 1])
 
+	return OpCode((firstByte << 8) + secondByte)
+}
+
+func (vm *VirtualMachine) CurrentOpcode() OpCode {
+	return vm.OpCodeAt(vm.ProgramCounter)
+}
+
+func (vm *VirtualMachine) String() string {
+	return fmt.Sprint("Registers:  ", vm.Registers, "\nPC:  ", vm.ProgramCounter, "\nI:  ", vm.IndexRegister)
 }
 
 // CHIP-8 Font Set.
