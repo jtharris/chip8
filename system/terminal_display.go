@@ -5,7 +5,9 @@ import (
 	"time"
 )
 
-type TerminalDisplay struct {}
+type TerminalDisplay struct {
+	PreviousFrame [32]uint64
+}
 
 func (t TerminalDisplay) Initialize() {
 	err := termbox.Init()
@@ -22,12 +24,23 @@ func (t TerminalDisplay) Close() {
 func (t TerminalDisplay) Render(vm *VirtualMachine) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
 
-	for row := range vm.Pixels {
-		for col := uint64(0); col < 64; col++  {
-			// TODO:  Push this bit logic into a generic display struct?
-			columnFilter := uint64(1) << (63 - col)
+	// Draw the border
+	for col := 0; col < 66; col++ {
+		termbox.SetCell(col, 0, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(col, 33, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
+	}
+
+	for row := 1; row < 33; row++ {
+		termbox.SetCell(0, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(65, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
+	}
+
+	// TODO:  Push this bit logic into a generic display struct?
+	for col := uint64(0); col < 64; col++  {
+		columnFilter := uint64(1) << (63 - col)
+		for row := range vm.Pixels {
 			if vm.Pixels[row] & columnFilter == columnFilter {
-				termbox.SetCell(int(col), row, '\u2588', termbox.ColorGreen, termbox.ColorGreen)
+				termbox.SetCell(int(col) + 1, row + 1, ' ', termbox.ColorGreen, termbox.ColorGreen)
 			}
 		}
 	}
@@ -42,7 +55,7 @@ func (t TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
 	}
 
 	// Gather up all the keyboard events for 5ms then exit
-	time.AfterFunc(time.Millisecond * 5, termbox.Interrupt)
+	time.AfterFunc(time.Millisecond * 2, termbox.Interrupt)
 
 	for {
 		ev := termbox.PollEvent()

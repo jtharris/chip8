@@ -36,6 +36,12 @@ func(o DrawOp) Execute(machine *system.VirtualMachine) {
 
 	for row := byte(0); row < o.height; row++ {
 		y := yPos + row
+
+		// Edge case where sprites can be drawn off the screen?
+		if int(y) >= len(machine.Pixels) {
+			return
+		}
+
 		sprite := uint64(machine.Memory[machine.IndexRegister + uint16(row)])
 		offset := 56 - int(xPos)
 
