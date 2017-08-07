@@ -63,6 +63,16 @@ func (vm *VirtualMachine) CurrentOpcode() OpCode {
 	return vm.OpCodeAt(vm.ProgramCounter)
 }
 
+func (vm *VirtualMachine) DecrementTimers() {
+	if vm.DelayTimer > 0 {
+		vm.DelayTimer--
+	}
+
+	if vm.SoundTimer > 0 {
+		vm.SoundTimer--
+	}
+}
+
 func (vm *VirtualMachine) String() string {
 	return fmt.Sprint("Registers:  ", vm.Registers, "\nPC:  ", vm.ProgramCounter, "\nI:  ", vm.IndexRegister)
 }

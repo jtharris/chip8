@@ -6,11 +6,12 @@ import (
 	"chip8/system"
 	"chip8/operations"
 	"time"
+	"runtime"
 )
 
-//func init() {
-//	runtime.LockOSThread()
-//}
+func init() {
+	runtime.LockOSThread()
+}
 
 func main() {
 	// TODO:  All types of error checking
@@ -40,20 +41,12 @@ func Timers(vm *system.VirtualMachine) {
 	ticker := time.NewTicker(time.Microsecond * 16667)	// Running at 60 Hz
 
 	for range ticker.C {
-		// TODO:  Move to a Cycle method?
-		// Decrement timers
-		if vm.DelayTimer > 0 {
-			vm.DelayTimer--
-		}
-
-		if vm.SoundTimer > 0 {
-			vm.SoundTimer--
-		}
+		vm.DecrementTimers()
 	}
 }
 
 func Run(vm *system.VirtualMachine) {
-	ticker := time.NewTicker(time.Millisecond * 10)	// Running at 60 Hz
+	ticker := time.NewTicker(time.Millisecond * 5)
 
 	for range ticker.C {
 		opcode := vm.CurrentOpcode()
