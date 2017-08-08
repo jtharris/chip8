@@ -7,6 +7,7 @@ import (
 	"chip8/operations"
 	"time"
 	"runtime"
+	"fmt"
 )
 
 func init() {
@@ -28,6 +29,9 @@ func read(fileName string) {
 	vm := system.NewVirtualMachine()
 	vm.Load(data)
 
+	//PrintOpcodes(&vm)
+	//return
+
 	//display := system.TerminalDisplay{}
 	display := system.OpenGLDisplay{}
 
@@ -46,7 +50,7 @@ func Timers(vm *system.VirtualMachine) {
 }
 
 func Run(vm *system.VirtualMachine) {
-	ticker := time.NewTicker(time.Millisecond * 5)
+	ticker := time.NewTicker(time.Millisecond * 3)
 
 	for range ticker.C {
 		opcode := vm.CurrentOpcode()
@@ -55,3 +59,15 @@ func Run(vm *system.VirtualMachine) {
 		vm.ProgramCounter += 2
 	}
 }
+
+func PrintOpcodes(vm *system.VirtualMachine) {
+	for mem := vm.ProgramCounter; mem < uint16(len(vm.Memory)); mem += 2 {
+		opcode := vm.OpCodeAt(mem)
+
+		if opcode > 0 {
+			op := operations.CreateOperation(opcode)
+			fmt.Println(mem, " - ", opcode, ":  ", op.String())
+		}
+	}
+}
+

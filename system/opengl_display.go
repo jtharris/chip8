@@ -63,6 +63,7 @@ func Render(vm *VirtualMachine) {
 func UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
 	vm.Keyboard[0x1] = window.GetKey(glfw.KeyW) == glfw.Press
 	vm.Keyboard[0x4] = window.GetKey(glfw.KeyS) == glfw.Press
+	vm.Keyboard[0x6] = window.GetKey(glfw.KeyD) == glfw.Press
 	vm.Keyboard[0xC] = window.GetKey(glfw.KeyUp) == glfw.Press
 	vm.Keyboard[0xD] = window.GetKey(glfw.KeyDown) == glfw.Press
 }
