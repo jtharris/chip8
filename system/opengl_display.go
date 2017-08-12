@@ -18,6 +18,7 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 	if err != nil {
 		panic(err)
 	}
+
 	window.MakeContextCurrent()
 	window.Focus()
 

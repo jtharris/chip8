@@ -6,8 +6,8 @@ import (
 	"chip8/system"
 	"chip8/operations"
 	"time"
-	"runtime"
 	"fmt"
+	"runtime"
 )
 
 func init() {
@@ -42,6 +42,11 @@ func Timers(vm *system.VirtualMachine) {
 
 	for range ticker.C {
 		vm.DecrementTimers()
+
+		// Just use the terminal bell for now... beep if the sound timer is positive
+		if vm.SoundTimer > 0 {
+			fmt.Print("\a")
+		}
 	}
 }
 
