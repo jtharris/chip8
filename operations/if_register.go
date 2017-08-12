@@ -7,8 +7,7 @@ import (
 
 type IfRegisterParser struct {}
 func(p IfRegisterParser) Matches(opcode system.OpCode) bool {
-	opString := opcode.String()
-	return opString[0] == '5' && opString[3] == '0'
+	return opcode >> 12 == 0x5 && opcode & 0x000F == 0x0
 }
 
 func(p IfRegisterParser) CreateOp(opcode system.OpCode) Operation {

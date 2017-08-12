@@ -29,15 +29,11 @@ func read(fileName string) {
 	vm := system.NewVirtualMachine()
 	vm.Load(data)
 
-	//PrintOpcodes(&vm)
-	//return
-
 	//display := system.TerminalDisplay{}
 	display := system.OpenGLDisplay{}
 
 	go Run(&vm)
 	go Timers(&vm)
-
 	display.Start(&vm)
 }
 

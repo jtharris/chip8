@@ -7,7 +7,7 @@ import (
 
 type IfConstantParser struct {}
 func(p IfConstantParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == '3'
+	return opcode >> 12 == 0x3
 }
 
 func(p IfConstantParser) CreateOp(opcode system.OpCode) Operation {

@@ -7,7 +7,7 @@ import (
 
 type IfNotKeyParser struct {}
 func(p IfNotKeyParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'e' && byte(opcode) == 0xA1
+	return opcode >> 12 == 0xE && byte(opcode) == 0xA1
 }
 
 func(p IfNotKeyParser) CreateOp(opcode system.OpCode) Operation {

@@ -41,18 +41,17 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 
 func Render(vm *VirtualMachine) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
-
-	gl.Begin(gl.QUADS)
 	gl.Color3f(0.0, 1.0, 0.0)
-	for col := uint64(0); col < 64; col++  {
+	gl.Begin(gl.QUADS)
+	for col := uint64(0); col < 64; col++ {
 		columnFilter := uint64(1) << (63 - col)
 		c := int32(col)
 		for row := range vm.Pixels {
 			if vm.Pixels[row] & columnFilter == columnFilter {
 				r := int32(row)
 				gl.Vertex2i(c, r)
-				gl.Vertex2i(c + 1, r)
-				gl.Vertex2i(c + 1, r + 1)
+				gl.Vertex2i(c+1, r)
+				gl.Vertex2i(c+1, r + 1)
 				gl.Vertex2i(c, r + 1)
 			}
 		}

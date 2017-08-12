@@ -7,9 +7,7 @@ import (
 
 type ReverseSubtractRegisterParser struct {}
 func(p ReverseSubtractRegisterParser) Matches(opcode system.OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
-	opString := opcode.String()
-	return opString[0] == '8' && opString[3] == '7'
+	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x7
 }
 
 func(p ReverseSubtractRegisterParser) CreateOp(opcode system.OpCode) Operation {

@@ -50,7 +50,7 @@ func TestIfRegisterOp_ExecuteMatch(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	assert.Equal(t, uint16(0x9), vm.ProgramCounter)
+	assert.Equal(t, uint16(0xA), vm.ProgramCounter)
 }
 
 func TestIfRegisterOp_ExecuteNoMatch(t *testing.T) {

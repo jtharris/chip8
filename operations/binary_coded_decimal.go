@@ -7,7 +7,7 @@ import (
 
 type BinaryCodedDecimalParser struct {}
 func(p BinaryCodedDecimalParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'f' && byte(opcode) == 0x33
+	return opcode >> 12 == 0xF && byte(opcode) == 0x33
 }
 
 func(p BinaryCodedDecimalParser) CreateOp(opcode system.OpCode) Operation {

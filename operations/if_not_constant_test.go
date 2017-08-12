@@ -59,6 +59,6 @@ func TestIfNotConstantOp_ExecuteNoMatch(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	assert.Equal(t, uint16(0xA), vm.ProgramCounter)
+	assert.Equal(t, uint16(0xB), vm.ProgramCounter)
 }
 

@@ -7,7 +7,7 @@ import (
 
 type GotoParser struct {}
 func(p GotoParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == '1'
+	return opcode >> 12 == 0x1
 }
 
 func(p GotoParser) CreateOp(opcode system.OpCode) Operation {

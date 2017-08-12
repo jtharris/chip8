@@ -7,7 +7,7 @@ import (
 
 type SpriteLocationParser struct {}
 func(p SpriteLocationParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'f' && byte(opcode) == 0x29
+	return opcode >> 12 == 0xF && byte(opcode) == 0x29
 }
 
 func(p SpriteLocationParser) CreateOp(opcode system.OpCode) Operation {

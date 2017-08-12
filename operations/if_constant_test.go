@@ -43,7 +43,7 @@ func TestIfConstantOp_ExecuteMatch(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	assert.Equal(t, uint16(0x9), vm.ProgramCounter)
+	assert.Equal(t, uint16(0xA), vm.ProgramCounter)
 }
 
 func TestIfConstantOp_ExecuteNoMatch(t *testing.T) {

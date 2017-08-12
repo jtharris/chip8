@@ -7,8 +7,7 @@ import (
 
 type CallParser struct {}
 func(p CallParser) Matches(opcode system.OpCode) bool {
-	// TODO:  There is probably a more efficient way to do this
-	return opcode.String()[0] == '2'
+	return opcode >> 12 == 0x2
 }
 
 func(p CallParser) CreateOp(opcode system.OpCode) Operation {

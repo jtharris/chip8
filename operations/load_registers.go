@@ -7,7 +7,7 @@ import (
 
 type LoadRegistersParser struct {}
 func(p LoadRegistersParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'f' && byte(opcode) == 0x65
+	return opcode >> 12 == 0xF && byte(opcode) == 0x65
 }
 
 func(p LoadRegistersParser) CreateOp(opcode system.OpCode) Operation {

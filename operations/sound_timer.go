@@ -7,7 +7,7 @@ import (
 
 type SoundTimerParser struct {}
 func(p SoundTimerParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'f' && byte(opcode) == 0x18
+	return opcode >> 12 == 0xF && byte(opcode) == 0x18
 }
 
 func(p SoundTimerParser) CreateOp(opcode system.OpCode) Operation {

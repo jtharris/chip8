@@ -7,7 +7,7 @@ import (
 
 type SetToDelayParser struct {}
 func(p SetToDelayParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'f' && byte(opcode) == 0x07
+	return opcode >> 12 == 0xF && byte(opcode) == 0x07
 }
 
 func(p SetToDelayParser) CreateOp(opcode system.OpCode) Operation {

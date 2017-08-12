@@ -7,8 +7,7 @@ import (
 
 type BitwiseOrParser struct {}
 func(p BitwiseOrParser) Matches(opcode system.OpCode) bool {
-	opString := opcode.String()
-	return opString[0] == '8' && opString[3] == '1'
+	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x1
 }
 
 func(p BitwiseOrParser) CreateOp(opcode system.OpCode) Operation {

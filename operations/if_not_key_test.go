@@ -47,7 +47,7 @@ func TestIfNotKeyOp_ExecuteFalse(t *testing.T) {
 
 	op.Execute(&vm)
 
-	assert.Equal(t, uint16(0x08), vm.ProgramCounter)
+	assert.Equal(t, uint16(0x9), vm.ProgramCounter)
 }
 
 func TestIfNotKeyOp_ExecuteTrue(t *testing.T) {

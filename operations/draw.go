@@ -8,7 +8,7 @@ import (
 
 type DrawParser struct {}
 func(p DrawParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'd'
+	return opcode >> 12 == 0xD
 }
 
 func(p DrawParser) CreateOp(opcode system.OpCode) Operation {

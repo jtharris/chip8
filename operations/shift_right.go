@@ -7,8 +7,7 @@ import (
 
 type ShiftRightParser struct {}
 func(p ShiftRightParser) Matches(opcode system.OpCode) bool {
-	opString := opcode.String()
-	return opString[0] == '8' && opString[3] == '6'
+	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x6
 }
 
 func(p ShiftRightParser) CreateOp(opcode system.OpCode) Operation {

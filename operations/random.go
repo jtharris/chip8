@@ -8,7 +8,7 @@ import (
 
 type RandomParser struct {}
 func(p RandomParser) Matches(opcode system.OpCode) bool {
-	return opcode.String()[0] == 'c'
+	return opcode >> 12 == 0xC
 }
 
 func(p RandomParser) CreateOp(opcode system.OpCode) Operation {
