@@ -71,4 +71,3 @@ func PrintOpcodes(vm *system.VirtualMachine) {
 		}
 	}
 }
-

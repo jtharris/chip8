@@ -31,8 +31,8 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 	gl.ClearColor(0.0, 0.0, 0.0, 1.0)
 
 	for !window.ShouldClose() {
-		UpdateKeys(window, vm)
-		Render(vm)
+		d.UpdateKeys(window, vm)
+		d.Render(vm)
 		window.SwapBuffers()
 		glfw.PollEvents()
 	}
@@ -40,27 +40,26 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 	glfw.Terminate()
 }
 
-func Render(vm *VirtualMachine) {
+func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 	gl.Color3f(0.0, 1.0, 0.0)
 	gl.Begin(gl.QUADS)
-	for col := uint64(0); col < 64; col++ {
-		columnFilter := uint64(1) << (63 - col)
-		c := int32(col)
+	for col := 0; col < 64; col++ {
 		for row := range vm.Pixels {
-			if vm.Pixels[row] & columnFilter == columnFilter {
+			if vm.PixelSetAt(col, row) {
+				c := int32(col)
 				r := int32(row)
 				gl.Vertex2i(c, r)
 				gl.Vertex2i(c+1, r)
-				gl.Vertex2i(c+1, r + 1)
-				gl.Vertex2i(c, r + 1)
+				gl.Vertex2i(c+1, r+1)
+				gl.Vertex2i(c, r+1)
 			}
 		}
 	}
 	gl.End()
 }
 
-func UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
+func (d *OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
 	vm.Keyboard[0x1] = window.GetKey(glfw.KeyW) == glfw.Press
 	vm.Keyboard[0x4] = window.GetKey(glfw.KeyS) == glfw.Press
 	vm.Keyboard[0x6] = window.GetKey(glfw.KeyD) == glfw.Press

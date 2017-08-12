@@ -6,18 +6,22 @@ import (
 )
 
 type TerminalDisplay struct {
-	PreviousFrame [32]uint64
+	shouldQuit bool
 }
 
-func (t TerminalDisplay) Initialize() {
+func (t TerminalDisplay) Start(vm *VirtualMachine) {
 	err := termbox.Init()
 
 	if err != nil {
 		panic(err)
 	}
-}
 
-func (t TerminalDisplay) Close() {
+	for !t.shouldQuit {
+		t.UpdateKeys(vm)
+		t.Render(vm)
+		time.Sleep(time.Millisecond)
+	}
+
 	termbox.Close()
 }
 
@@ -35,12 +39,10 @@ func (t TerminalDisplay) Render(vm *VirtualMachine) {
 		termbox.SetCell(65, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
 	}
 
-	// TODO:  Push this bit logic into a generic display struct?
-	for col := uint64(0); col < 64; col++  {
-		columnFilter := uint64(1) << (63 - col)
+	for col := 0; col < 64; col++  {
 		for row := range vm.Pixels {
-			if vm.Pixels[row] & columnFilter == columnFilter {
-				termbox.SetCell(int(col) + 1, row + 1, ' ', termbox.ColorGreen, termbox.ColorGreen)
+			if vm.PixelSetAt(col, row) {
+				termbox.SetCell(col + 1, row + 1, ' ', termbox.ColorGreen, termbox.ColorGreen)
 			}
 		}
 	}
@@ -49,24 +51,22 @@ func (t TerminalDisplay) Render(vm *VirtualMachine) {
 }
 
 func (t TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
-	// Clear the keyboard - TODO:  Pull this out somewhere else?
-	for i := 0; i < len(vm.Keyboard); i++ {
-		vm.Keyboard[i] = false
-	}
-
 	// Gather up all the keyboard events for 5ms then exit
 	time.AfterFunc(time.Millisecond * 2, termbox.Interrupt)
 
 	for {
 		ev := termbox.PollEvent()
-
-		// TODO:  Temp
 		if ev.Type == termbox.EventKey {
 			switch ev.Ch {
 			case 'w':
 				vm.Keyboard[0x1] = true
 			case 's':
 				vm.Keyboard[0x4] = true
+			case 'd':
+				vm.Keyboard[0x6] = true
+			case 'q':
+				t.shouldQuit = true
+				return
 			}
 
 			switch ev.Key {
@@ -74,6 +74,9 @@ func (t TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
 				vm.Keyboard[0xC] = true
 			case termbox.KeyArrowDown:
 				vm.Keyboard[0xD] = true
+			case termbox.KeyEsc:
+				t.shouldQuit = true
+				return
 			}
 		} else if ev.Type == termbox.EventInterrupt {
 			return

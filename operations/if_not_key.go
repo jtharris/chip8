@@ -28,4 +28,8 @@ func(o IfNotKeyOp) Execute(machine *system.VirtualMachine) {
 		// TODO:  Move this
 		machine.ProgramCounter += 2
 	}
+
+	// Clear the keyboard now that the key has been registered.
+	// This is needed for inputs that don't have key up events like termbox
+	machine.Keyboard[machine.Registers[o.register]] = false
 }

@@ -2,7 +2,6 @@ package system
 
 import (
 	"encoding/hex"
-	"fmt"
 )
 
 // TODO:  Is this the right place for this?
@@ -73,9 +72,11 @@ func (vm *VirtualMachine) DecrementTimers() {
 	}
 }
 
-func (vm *VirtualMachine) String() string {
-	return fmt.Sprint("Registers:  ", vm.Registers, "\nPC:  ", vm.ProgramCounter, "\nI:  ", vm.IndexRegister)
+func (vm *VirtualMachine) PixelSetAt(x int, y int) bool {
+	columnFilter := uint64(1) << (63 - uint(x))
+	return vm.Pixels[y] & columnFilter == columnFilter
 }
+
 
 // CHIP-8 Font Set.
 var fontSet = [80]byte{
