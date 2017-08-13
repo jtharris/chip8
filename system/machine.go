@@ -83,6 +83,7 @@ func (vm *VirtualMachine) PixelSetAt(x int, y int) bool {
 
 
 // CHIP-8 Font Set.
+// See here for reference:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
 var fontSet = [80]byte{
 	0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
 	0x20, 0x60, 0x20, 0x20, 0x70, // 1

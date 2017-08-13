@@ -26,8 +26,7 @@ func(o IfRegisterOp) String() string {
 }
 
 func(o IfRegisterOp) Execute(machine *system.VirtualMachine) {
-	if (machine.Registers[o.register1] == machine.Registers[o.register2]) {
-		// TODO:  Refactor this
-		machine.ProgramCounter += 2
+	if machine.Registers[o.register1] == machine.Registers[o.register2] {
+		machine.IncrementPC()
 	}
 }

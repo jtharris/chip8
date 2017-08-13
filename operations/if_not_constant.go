@@ -27,7 +27,6 @@ func(o IfNotConstantOp) String() string {
 
 func(o IfNotConstantOp) Execute(machine *system.VirtualMachine) {
 	if machine.Registers[o.register] != o.value {
-		// TODO:  Move this
-		machine.ProgramCounter += 2
+		machine.IncrementPC()
 	}
 }

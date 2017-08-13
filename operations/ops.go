@@ -14,6 +14,7 @@ type Operation interface {
 	Execute(machine *system.VirtualMachine)
 }
 
+// TODO:  Pull these into a factory struct
 var parsers = []OperationParser{
 	ClearParser{},
 	ReturnParser{},
@@ -43,14 +44,29 @@ var parsers = []OperationParser{
 	LoadRegistersParser{},
 	SpriteLocationParser{},
 	AddToIndexParser{},
+	IfKeyParser{},
+	IfNotRegisterParser{},
 }
 
-func CreateOperation(opCode system.OpCode) Operation {
-	for _, parser := range parsers {
-		if parser.Matches(opCode) {
-			return parser.CreateOp(opCode)
+var ops = make(map[system.OpCode] Operation)
+
+func CreateOperation(opcode system.OpCode) Operation {
+	op, ok := ops[opcode]
+
+	if !ok {
+		for _, parser := range parsers {
+			if parser.Matches(opcode) {
+				op = parser.CreateOp(opcode)
+				break
+			}
 		}
+
+		if op == nil {
+			op = UnknownOp{code: opcode}
+		}
+
+		ops[opcode] = op
 	}
 
-	return UnknownOp{code: opCode}
+	return op
 }
