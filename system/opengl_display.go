@@ -3,7 +3,12 @@ package system
 import (
 	"github.com/go-gl/gl/v2.1/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
+	"runtime"
 )
+
+func init() {
+	runtime.LockOSThread()
+}
 
 type OpenGLDisplay struct {}
 
@@ -59,10 +64,27 @@ func (d OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.End()
 }
 
+var keyMap = []glfw.Key {
+	glfw.KeyX,
+	glfw.Key1,
+	glfw.Key2,
+	glfw.Key3,
+	glfw.KeyQ,
+	glfw.KeyW,
+	glfw.KeyE,
+	glfw.KeyA,
+	glfw.KeyS,
+	glfw.KeyD,
+	glfw.KeyZ,
+	glfw.KeyC,
+	glfw.Key4,
+	glfw.KeyR,
+	glfw.KeyF,
+	glfw.KeyV,
+}
+
 func (d OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
-	vm.Keyboard[0x1] = window.GetKey(glfw.KeyW) == glfw.Press
-	vm.Keyboard[0x4] = window.GetKey(glfw.KeyS) == glfw.Press
-	vm.Keyboard[0x6] = window.GetKey(glfw.KeyD) == glfw.Press
-	vm.Keyboard[0xC] = window.GetKey(glfw.KeyUp) == glfw.Press
-	vm.Keyboard[0xD] = window.GetKey(glfw.KeyDown) == glfw.Press
+	for hex, input := range keyMap {
+		vm.Keyboard[hex] = window.GetKey(input) == glfw.Press
+	}
 }

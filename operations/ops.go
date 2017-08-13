@@ -46,6 +46,7 @@ var parsers = []OperationParser{
 	AddToIndexParser{},
 	IfKeyParser{},
 	IfNotRegisterParser{},
+	DumpRegistersParser{},
 }
 
 var ops = make(map[system.OpCode] Operation)
