@@ -1,13 +1,18 @@
 package operations
 
-import "chip8/system"
+import (
+	"chip8/system"
+	"fmt"
+)
 
-type UnknownOp struct{}
+type UnknownOp struct{
+	code system.OpCode
+}
 
 func (o UnknownOp) String() string {
 	return "Unknown Operation"
 }
 
 func (o UnknownOp) Execute(machine *system.VirtualMachine) {
-	// Do nothing sentence
+	panic(fmt.Sprint("Unknown opcode:  ", o.code))
 }

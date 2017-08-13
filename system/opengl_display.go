@@ -40,7 +40,7 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 	glfw.Terminate()
 }
 
-func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
+func (d OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 	gl.Color3f(0.0, 1.0, 0.0)
 	gl.Begin(gl.QUADS)
@@ -59,7 +59,7 @@ func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.End()
 }
 
-func (d *OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
+func (d OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
 	vm.Keyboard[0x1] = window.GetKey(glfw.KeyW) == glfw.Press
 	vm.Keyboard[0x4] = window.GetKey(glfw.KeyS) == glfw.Press
 	vm.Keyboard[0x6] = window.GetKey(glfw.KeyD) == glfw.Press
