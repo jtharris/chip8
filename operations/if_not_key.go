@@ -12,24 +12,24 @@ func(p IfNotKeyParser) Matches(opcode system.OpCode) bool {
 
 func(p IfNotKeyParser) CreateOp(opcode system.OpCode) Operation {
 	return IfNotKeyOp{
-		register: uint8(opcode & 0x0F00 >> 8),
+		register: byte(opcode & 0x0F00 >> 8),
 	}
 }
 
 type IfNotKeyOp struct {
-	register uint8
+	register byte
 }
 func(o IfNotKeyOp) String() string {
 	return fmt.Sprintf("If key != V%X", o.register)
 }
 
 func(o IfNotKeyOp) Execute(machine *system.VirtualMachine) {
-	if !machine.Keyboard[machine.Registers[o.register]] {
-		// TODO:  Move this
-		machine.ProgramCounter += 2
+	key := machine.Registers[o.register]
+	if !machine.Keyboard[key] {
+		machine.IncrementPC()
 	}
 
 	// Clear the keyboard now that the key has been registered.
 	// This is needed for inputs that don't have key up events like termbox
-	machine.Keyboard[machine.Registers[o.register]] = false
+	machine.Keyboard[key] = false
 }

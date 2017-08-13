@@ -57,7 +57,7 @@ func Run(vm *system.VirtualMachine) {
 		opcode := vm.CurrentOpcode()
 		op := operations.CreateOperation(opcode)
 		op.Execute(vm)
-		vm.ProgramCounter += 2
+		vm.IncrementPC()
 	}
 }
 

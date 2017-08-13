@@ -62,6 +62,10 @@ func (vm *VirtualMachine) CurrentOpcode() OpCode {
 	return vm.OpCodeAt(vm.ProgramCounter)
 }
 
+func (vm *VirtualMachine) IncrementPC() {
+	vm.ProgramCounter += 2
+}
+
 func (vm *VirtualMachine) DecrementTimers() {
 	if vm.DelayTimer > 0 {
 		vm.DelayTimer--
