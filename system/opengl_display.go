@@ -12,7 +12,7 @@ func init() {
 
 type OpenGLDisplay struct {}
 
-func (d OpenGLDisplay) Start(vm *VirtualMachine) {
+func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 	err := glfw.Init()
 
 	if err != nil {
@@ -45,7 +45,7 @@ func (d OpenGLDisplay) Start(vm *VirtualMachine) {
 	glfw.Terminate()
 }
 
-func (d OpenGLDisplay) Render(vm *VirtualMachine) {
+func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 	gl.Color3f(0.0, 1.0, 0.0)
 	gl.Begin(gl.QUADS)
@@ -64,26 +64,11 @@ func (d OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.End()
 }
 
-var keyMap = []glfw.Key {
-	glfw.KeyX,
-	glfw.Key1,
-	glfw.Key2,
-	glfw.Key3,
-	glfw.KeyQ,
-	glfw.KeyW,
-	glfw.KeyE,
-	glfw.KeyA,
-	glfw.KeyS,
-	glfw.KeyD,
-	glfw.KeyZ,
-	glfw.KeyC,
-	glfw.Key4,
-	glfw.KeyR,
-	glfw.KeyF,
-	glfw.KeyV,
+var keyMap = []glfw.Key {glfw.KeyX, glfw.Key1, glfw.Key2, glfw.Key3, glfw.KeyQ, glfw.KeyW, glfw.KeyE, glfw.KeyA,
+	glfw.KeyS, glfw.KeyD, glfw.KeyZ, glfw.KeyC, glfw.Key4, glfw.KeyR, glfw.KeyF, glfw.KeyV,
 }
 
-func (d OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
+func (d *OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
 	for hex, input := range keyMap {
 		vm.Keyboard[hex] = window.GetKey(input) == glfw.Press
 	}

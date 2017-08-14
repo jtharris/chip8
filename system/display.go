@@ -1,5 +1,5 @@
 package system
 
 type Display interface {
-	Start()
+	Start(vm *VirtualMachine)
 }

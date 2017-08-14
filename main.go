@@ -11,13 +11,21 @@ import (
 
 func main() {
 	printOps := flag.Bool("print", false, "Print program opcodes, rather than run the binary")
+	useTerm := flag.Bool("terminal", false, "Use the terminal renderer instead of opengl.")
 	flag.Parse()
 
 	vm := read(flag.Args()[0])
 	if *printOps {
 		printOpcodes(vm)
 	} else {
-		run(vm)
+		var display system.Display
+		if *useTerm {
+			display = &system.TerminalDisplay{}
+		} else {
+			display = &system.OpenGLDisplay{}
+		}
+
+		run(vm, display)
 	}
 }
 
@@ -34,10 +42,7 @@ func read(fileName string) *system.VirtualMachine {
 	return &vm
 }
 
-func run(vm *system.VirtualMachine) {
-	//display := system.TerminalDisplay{}
-	display := system.OpenGLDisplay{}
-
+func run(vm *system.VirtualMachine, display system.Display) {
 	go startMachine(vm)
 	go startTimers(vm)
 	display.Start(vm)

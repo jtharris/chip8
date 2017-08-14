@@ -9,7 +9,7 @@ type TerminalDisplay struct {
 	shouldQuit bool
 }
 
-func (t TerminalDisplay) Start(vm *VirtualMachine) {
+func (t *TerminalDisplay) Start(vm *VirtualMachine) {
 	err := termbox.Init()
 
 	if err != nil {
@@ -25,7 +25,7 @@ func (t TerminalDisplay) Start(vm *VirtualMachine) {
 	termbox.Close()
 }
 
-func (t TerminalDisplay) Render(vm *VirtualMachine) {
+func (t *TerminalDisplay) Render(vm *VirtualMachine) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
 
 	// Draw the border
@@ -50,31 +50,25 @@ func (t TerminalDisplay) Render(vm *VirtualMachine) {
 	termbox.Flush()
 }
 
-func (t TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
+
+var termKeyMap = []rune {'x', '1', '2', '3', 'q', 'w', 'e', 'a', 's', 'd', 'z', 'c', '4', 'r', 'f', 'v',}
+
+func (t *TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
 	// Gather up all the keyboard events for 5ms then exit
 	time.AfterFunc(time.Millisecond * 2, termbox.Interrupt)
 
 	for {
 		ev := termbox.PollEvent()
+
 		if ev.Type == termbox.EventKey {
-			switch ev.Ch {
-			case 'w':
-				vm.Keyboard[0x1] = true
-			case 's':
-				vm.Keyboard[0x4] = true
-			case 'd':
-				vm.Keyboard[0x6] = true
-			case 'q':
-				t.shouldQuit = true
-				return
+			for i, char := range termKeyMap {
+				if char == ev.Ch {
+					vm.Keyboard[i] = true
+					break
+				}
 			}
 
-			switch ev.Key {
-			case termbox.KeyArrowUp:
-				vm.Keyboard[0xC] = true
-			case termbox.KeyArrowDown:
-				vm.Keyboard[0xD] = true
-			case termbox.KeyEsc:
+			if ev.Key == termbox.KeyEsc {
 				t.shouldQuit = true
 				return
 			}
