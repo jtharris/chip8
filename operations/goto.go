@@ -23,6 +23,6 @@ func(o GotoOp) String() string {
 	return fmt.Sprintf("Goto: %X", o.address)
 }
 
-func(o GotoOp) Execute(machine *system.VirtualMachine) {
-	machine.ProgramCounter = o.address - 2
+func(o GotoOp) Execute(vm *system.VirtualMachine) {
+	vm.ProgramCounter = o.address - 2
 }

@@ -25,15 +25,15 @@ func(o ReverseSubtractRegisterOp) String() string {
 	return fmt.Sprintf("V%X = V%X - V%X", o.register1, o.register2, o.register1)
 }
 
-func(o ReverseSubtractRegisterOp) Execute(machine *system.VirtualMachine) {
-	val1 := machine.Registers[o.register1]
-	val2 := machine.Registers[o.register2]
+func(o ReverseSubtractRegisterOp) Execute(vm *system.VirtualMachine) {
+	val1 := vm.Registers[o.register1]
+	val2 := vm.Registers[o.register2]
 
 	if val1 > val2 {
-		machine.Registers[0xF] = 0x0
+		vm.Registers[0xF] = 0x0
 	} else {
-		machine.Registers[0xF] = 0x1
+		vm.Registers[0xF] = 0x1
 	}
 
-	machine.Registers[o.register1] = val2 - val1
+	vm.Registers[o.register1] = val2 - val1
 }

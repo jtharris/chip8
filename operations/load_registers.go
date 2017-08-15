@@ -23,8 +23,8 @@ func(o LoadRegistersOp) String() string {
 	return fmt.Sprintf("load_registers(V%X, &I)", o.topRegister)
 }
 
-func(o LoadRegistersOp) Execute(machine *system.VirtualMachine) {
+func(o LoadRegistersOp) Execute(vm *system.VirtualMachine) {
 	for i := byte(0); i <= o.topRegister; i++ {
-		machine.Registers[i] = machine.Memory[machine.IndexRegister + uint16(i)]
+		vm.Registers[i] = vm.Memory[vm.IndexRegister + uint16(i)]
 	}
 }

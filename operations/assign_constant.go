@@ -25,6 +25,6 @@ func(o AssignConstantOp) String() string {
 	return fmt.Sprintf("V%X = %X", o.register, o.value)
 }
 
-func(o AssignConstantOp) Execute(machine *system.VirtualMachine) {
-	machine.Registers[o.register] = o.value
+func(o AssignConstantOp) Execute(vm *system.VirtualMachine) {
+	vm.Registers[o.register] = o.value
 }

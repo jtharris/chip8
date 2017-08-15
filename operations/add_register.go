@@ -25,10 +25,10 @@ func(o AddRegisterOp) String() string {
 	return fmt.Sprintf("V%X += V%X", o.register1, o.register2)
 }
 
-func(o AddRegisterOp) Execute(machine *system.VirtualMachine) {
+func(o AddRegisterOp) Execute(vm *system.VirtualMachine) {
 	// Set the overflow register first
-	machine.Registers[0xF] = byte((uint16(machine.Registers[o.register1]) + uint16(machine.Registers[o.register2])) >> 8)
+	vm.Registers[0xF] = byte((uint16(vm.Registers[o.register1]) + uint16(vm.Registers[o.register2])) >> 8)
 
 	// Then add the value
-	machine.Registers[o.register1] += machine.Registers[o.register2]
+	vm.Registers[o.register1] += vm.Registers[o.register2]
 }

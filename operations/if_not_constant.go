@@ -25,8 +25,8 @@ func(o IfNotConstantOp) String() string {
 	return fmt.Sprintf("If V%X != %X", o.register, o.value)
 }
 
-func(o IfNotConstantOp) Execute(machine *system.VirtualMachine) {
-	if machine.Registers[o.register] != o.value {
-		machine.IncrementPC()
+func(o IfNotConstantOp) Execute(vm *system.VirtualMachine) {
+	if vm.Registers[o.register] != o.value {
+		vm.IncrementPC()
 	}
 }

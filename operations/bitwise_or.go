@@ -25,6 +25,6 @@ func(o BitwiseOrOp) String() string {
 	return fmt.Sprintf("V%X = V%X | V%X", o.register1, o.register1, o.register2)
 }
 
-func(o BitwiseOrOp) Execute(machine *system.VirtualMachine) {
-	machine.Registers[o.register1] |= machine.Registers[o.register2]
+func(o BitwiseOrOp) Execute(vm *system.VirtualMachine) {
+	vm.Registers[o.register1] |= vm.Registers[o.register2]
 }

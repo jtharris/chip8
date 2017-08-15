@@ -23,13 +23,13 @@ func(o IfKeyOp) String() string {
 	return fmt.Sprintf("If key == V%X", o.register)
 }
 
-func(o IfKeyOp) Execute(machine *system.VirtualMachine) {
-	key := machine.Registers[o.register]
-	if machine.Keyboard[key] {
-		machine.IncrementPC()
+func(o IfKeyOp) Execute(vm *system.VirtualMachine) {
+	key := vm.Registers[o.register]
+	if vm.Keyboard[key] {
+		vm.IncrementPC()
 	}
 
 	// Clear the keyboard now that the key has been registered.
 	// This is needed for inputs that don't have key up events like termbox
-	machine.Keyboard[key] = false
+	vm.Keyboard[key] = false
 }

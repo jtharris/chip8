@@ -19,8 +19,8 @@ func(o ClearOp) String() string {
 	return "Clear Screen"
 }
 
-func(o ClearOp) Execute(machine *system.VirtualMachine) {
-	for row := 0; row < len(machine.Pixels); row++ {
-		machine.Pixels[row] = 0
+func(o ClearOp) Execute(vm *system.VirtualMachine) {
+	for row := 0; row < len(vm.Pixels); row++ {
+		vm.Pixels[row] = 0
 	}
 }

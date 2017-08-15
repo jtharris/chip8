@@ -25,9 +25,8 @@ func(o IfConstantOp) String() string {
 	return fmt.Sprintf("If V%X == %X", o.register, o.value)
 }
 
-func(o IfConstantOp) Execute(machine *system.VirtualMachine) {
-	if machine.Registers[o.register] == o.value {
-		// TODO:  Move this incrementing behavior into VirtualMachine
-		machine.ProgramCounter += 2
+func(o IfConstantOp) Execute(vm *system.VirtualMachine) {
+	if vm.Registers[o.register] == o.value {
+		vm.IncrementPC()
 	}
 }

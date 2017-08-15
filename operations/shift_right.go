@@ -23,9 +23,9 @@ func(o ShiftRightOp) String() string {
 	return fmt.Sprintf("V%X >> 1", o.register)
 }
 
-func(o ShiftRightOp) Execute(machine *system.VirtualMachine) {
-	val := machine.Registers[o.register]
+func(o ShiftRightOp) Execute(vm *system.VirtualMachine) {
+	val := vm.Registers[o.register]
 
-	machine.Registers[0xF] = val & 0x01
-	machine.Registers[o.register] = val >> 1
+	vm.Registers[0xF] = val & 0x01
+	vm.Registers[o.register] = val >> 1
 }

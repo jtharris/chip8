@@ -25,8 +25,8 @@ func(o IfRegisterOp) String() string {
 	return fmt.Sprintf("If V%X == V%X", o.register1, o.register2)
 }
 
-func(o IfRegisterOp) Execute(machine *system.VirtualMachine) {
-	if machine.Registers[o.register1] == machine.Registers[o.register2] {
-		machine.IncrementPC()
+func(o IfRegisterOp) Execute(vm *system.VirtualMachine) {
+	if vm.Registers[o.register1] == vm.Registers[o.register2] {
+		vm.IncrementPC()
 	}
 }

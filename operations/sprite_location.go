@@ -23,7 +23,7 @@ func(o SpriteLocationOp) String() string {
 	return fmt.Sprintf("I = sprite_address(V%X)", o.register)
 }
 
-func(o SpriteLocationOp) Execute(machine *system.VirtualMachine) {
+func(o SpriteLocationOp) Execute(vm *system.VirtualMachine) {
 	// Each character is 5 bytes wide and starts at memory location 0
-	machine.IndexRegister = uint16(machine.Registers[o.register]) * 5
+	vm.IndexRegister = uint16(vm.Registers[o.register]) * 5
 }

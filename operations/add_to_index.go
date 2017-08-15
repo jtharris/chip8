@@ -24,6 +24,6 @@ func (o AddToIndexOp) String() string {
 	return fmt.Sprintf("I += V%X", o.register)
 }
 
-func (o AddToIndexOp) Execute(machine *system.VirtualMachine) {
-	machine.IndexRegister += uint16(machine.Registers[o.register])
+func (o AddToIndexOp) Execute(vm *system.VirtualMachine) {
+	vm.IndexRegister += uint16(vm.Registers[o.register])
 }

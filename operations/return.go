@@ -19,9 +19,9 @@ func(o ReturnOp) String() string {
 	return "Return from subroutine"
 }
 
-func(o ReturnOp) Execute(machine *system.VirtualMachine) {
-	lastItem := len(machine.Stack) - 1
+func(o ReturnOp) Execute(vm *system.VirtualMachine) {
+	lastItem := len(vm.Stack) - 1
 
-	machine.ProgramCounter = machine.Stack[lastItem]
-	machine.Stack = machine.Stack[:lastItem]
+	vm.ProgramCounter = vm.Stack[lastItem]
+	vm.Stack = vm.Stack[:lastItem]
 }

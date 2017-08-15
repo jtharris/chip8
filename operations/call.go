@@ -23,10 +23,10 @@ func(o CallOp) String() string {
 	return fmt.Sprintf("Call subroutine at:  %X", o.address)
 }
 
-func(o CallOp) Execute(machine *system.VirtualMachine) {
+func(o CallOp) Execute(vm *system.VirtualMachine) {
 	// Push the current address onto the call stack
-	machine.Stack = append(machine.Stack, machine.ProgramCounter)
+	vm.Stack = append(vm.Stack, vm.ProgramCounter)
 
 	// Set the program counter
-	machine.ProgramCounter = o.address - 2
+	vm.ProgramCounter = o.address - 2
 }

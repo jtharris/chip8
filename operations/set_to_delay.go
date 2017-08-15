@@ -23,6 +23,6 @@ func(o SetToDelayOp) String() string {
 	return fmt.Sprintf("V%X = delay_timer", o.register)
 }
 
-func(o SetToDelayOp) Execute(machine *system.VirtualMachine) {
-	machine.Registers[o.register] = machine.DelayTimer
+func(o SetToDelayOp) Execute(vm *system.VirtualMachine) {
+	vm.Registers[o.register] = vm.DelayTimer
 }

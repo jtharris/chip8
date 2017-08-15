@@ -23,6 +23,6 @@ func(o SoundTimerOp) String() string {
 	return fmt.Sprintf("sound_timer = V%X", o.register)
 }
 
-func(o SoundTimerOp) Execute(machine *system.VirtualMachine) {
-	machine.SoundTimer = machine.Registers[o.register]
+func(o SoundTimerOp) Execute(vm *system.VirtualMachine) {
+	vm.SoundTimer = vm.Registers[o.register]
 }

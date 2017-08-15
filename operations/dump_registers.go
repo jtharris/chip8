@@ -23,8 +23,8 @@ func(o DumpRegistersOp) String() string {
 	return fmt.Sprintf("dump_registers(V%X, &I)", o.topRegister)
 }
 
-func(o DumpRegistersOp) Execute(machine *system.VirtualMachine) {
+func(o DumpRegistersOp) Execute(vm *system.VirtualMachine) {
 	for i := byte(0); i <= o.topRegister; i++ {
-		machine.Memory[machine.IndexRegister + uint16(i)] = machine.Registers[i]
+		vm.Memory[vm.IndexRegister + uint16(i)] = vm.Registers[i]
 	}
 }

@@ -23,10 +23,10 @@ func(o BinaryCodedDecimalOp) String() string {
 	return fmt.Sprintf("BCD(V%X)", o.register)
 }
 
-func(o BinaryCodedDecimalOp) Execute(machine *system.VirtualMachine) {
-	val := machine.Registers[o.register]
+func(o BinaryCodedDecimalOp) Execute(vm *system.VirtualMachine) {
+	val := vm.Registers[o.register]
 
-	machine.Memory[machine.IndexRegister] = val / 100
-	machine.Memory[machine.IndexRegister + 1] = (val / 10) % 10
-	machine.Memory[machine.IndexRegister + 2] = val % 10
+	vm.Memory[vm.IndexRegister] = val / 100
+	vm.Memory[vm.IndexRegister + 1] = (val / 10) % 10
+	vm.Memory[vm.IndexRegister + 2] = val % 10
 }

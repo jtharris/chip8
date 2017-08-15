@@ -23,6 +23,6 @@ func(o SetIndexOp) String() string {
 	return fmt.Sprintf("I = %X", o.value)
 }
 
-func(o SetIndexOp) Execute(machine *system.VirtualMachine) {
-	machine.IndexRegister = o.value
+func(o SetIndexOp) Execute(vm *system.VirtualMachine) {
+	vm.IndexRegister = o.value
 }

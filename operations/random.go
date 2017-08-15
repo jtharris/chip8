@@ -26,6 +26,6 @@ func(o RandomOp) String() string {
 	return fmt.Sprintf("V%X = rand(255) & %X", o.register, o.value)
 }
 
-func(o RandomOp) Execute(machine *system.VirtualMachine) {
-	machine.Registers[o.register] = byte(rand.Int()) & o.value
+func(o RandomOp) Execute(vm *system.VirtualMachine) {
+	vm.Registers[o.register] = byte(rand.Int()) & o.value
 }
