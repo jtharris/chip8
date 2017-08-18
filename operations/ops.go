@@ -14,7 +14,6 @@ type Operation interface {
 	Execute(machine *system.VirtualMachine)
 }
 
-// TODO:  Pull these into a factory struct
 var parsers = []OperationParser{
 	ClearParser{},
 	ReturnParser{},
