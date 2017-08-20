@@ -31,6 +31,7 @@ var parsers = []OperationParser{
 	AddRegisterParser{},
 	SubtractRegisterParser{},
 	ShiftRightParser{},
+	ShiftLeftParser{},
 	ReverseSubtractRegisterParser{},
 	SetIndexParser{},
 	DrawParser{},
@@ -46,6 +47,7 @@ var parsers = []OperationParser{
 	IfKeyParser{},
 	IfNotRegisterParser{},
 	DumpRegistersParser{},
+	GetKeyParser{},
 }
 
 var ops = make(map[system.OpCode] Operation)

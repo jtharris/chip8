@@ -37,7 +37,7 @@ func TestShiftRightOp_String(t *testing.T) {
 	assert.Equal(t, "VD >> 1", op.String())
 }
 
-func TestCallOp_Execute1Overflow(t *testing.T) {
+func TestShiftRight_Execute1Overflow(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
 	vm.Registers[0xD] = 0x2F	// 0010 1111
@@ -55,7 +55,7 @@ func TestCallOp_Execute1Overflow(t *testing.T) {
 	assert.Equal(t, byte(0x1), vm.Registers[0xF])
 }
 
-func TestCallOp_Execute0Overflow(t *testing.T) {
+func TestShiftRight_Execute0Overflow(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
 	vm.Registers[0xD] = 0x2E	// 0010 1110

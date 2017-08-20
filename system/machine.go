@@ -25,11 +25,15 @@ type VirtualMachine struct {
 	Keyboard [16]bool
 	// The state of the pixels, rendered to a display
 	Pixels [32]uint64
+
+	// Should the machine be running
+	Running bool
 }
 
 func NewVirtualMachine() VirtualMachine {
 	// TODO:  Explain memory layout here...
 	vm := VirtualMachine{}
+	vm.Running = true
 
 	// Load the memory from the font set into the
 	// lower "program" memory space

@@ -52,11 +52,13 @@ func startTimers(vm *system.VirtualMachine) {
 	ticker := time.NewTicker(time.Microsecond * 16667)	// Running at 60 Hz
 
 	for range ticker.C {
-		vm.DecrementTimers()
+		if vm.Running {
+			vm.DecrementTimers()
 
-		// Just use the terminal bell for now... beep if the sound timer is positive
-		if vm.SoundTimer > 0 {
-			fmt.Print("\a")
+			// Just use the terminal bell for now... beep if the sound timer is positive
+			if vm.SoundTimer > 0 {
+				fmt.Print("\a")
+			}
 		}
 	}
 }
@@ -65,10 +67,12 @@ func startMachine(vm *system.VirtualMachine) {
 	ticker := time.NewTicker(time.Millisecond * 3)
 
 	for range ticker.C {
-		opcode := vm.CurrentOpcode()
-		op := operations.CreateOperation(opcode)
-		op.Execute(vm)
-		vm.IncrementPC()
+		if vm.Running {
+			opcode := vm.CurrentOpcode()
+			op := operations.CreateOperation(opcode)
+			op.Execute(vm)
+			vm.IncrementPC()
+		}
 	}
 }
 
