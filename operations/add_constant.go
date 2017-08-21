@@ -13,7 +13,7 @@ func (p AddConstantParser) Matches(opcode system.OpCode) bool {
 func (p AddConstantParser) CreateOp(opcode system.OpCode) Operation {
 	return AddConstantOp{
 		register: byte(opcode & 0x0F00 >> 8),
-		value: byte(opcode & 0x00FF),
+		value: byte(opcode),
 	}
 }
 
@@ -26,9 +26,5 @@ func (o AddConstantOp) String() string {
 }
 
 func (o AddConstantOp) Execute(vm *system.VirtualMachine) {
-	// Set the overflow register first
-	vm.Registers[0xF] = byte((uint16(vm.Registers[o.register]) + uint16(o.value)) >> 8)
-
-	// Then add the value
 	vm.Registers[o.register] += o.value
 }

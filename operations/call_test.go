@@ -45,3 +45,21 @@ func TestCallOp_Execute(t *testing.T) {
 	assert.Equal(t, uint16(0x07FE), vm.ProgramCounter)
 	assert.Equal(t, []uint16{0x0280}, vm.Stack)
 }
+
+func TestCallOp_ExecuteTwice(t *testing.T) {
+	// Given
+	vm := system.VirtualMachine{}
+	vm.ProgramCounter = 0x0280
+
+	op := CallOp{address: 0x0800}
+	op2 := CallOp{address: 0x0900}
+
+	// When
+	op.Execute(&vm)
+	vm.IncrementPC()
+	op2.Execute(&vm)
+
+	// Then
+	assert.Equal(t, uint16(0x08FE), vm.ProgramCounter)
+	assert.Equal(t, []uint16{0x0280, 0x0800}, vm.Stack)
+}

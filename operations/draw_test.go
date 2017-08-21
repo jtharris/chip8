@@ -76,6 +76,6 @@ func TestDrawOp_ExecuteFlipped(t *testing.T) {
 	assert.Equal(t, uint64(0x000000000000006F), vm.Pixels[5])
 	assert.Equal(t, uint64(0x000000000000000F), vm.Pixels[6])
 
-	// Since there were no pixels flipped from 'on' to 'off', make sure VF remains 0
+	// Since there were pixels flipped from 'on' to 'off', make sure VF is set
 	assert.Equal(t, byte(1), vm.Registers[0xF])
 }

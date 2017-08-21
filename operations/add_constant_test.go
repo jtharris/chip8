@@ -73,8 +73,8 @@ func TestAddConstantOp_ExecuteOverflow(t *testing.T) {
 	// Then
 	assert.Equal(t, byte(0x02), vm.Registers[0x1])
 
-	// Also be sure to set the carry flag
-	assert.Equal(t, byte(0x01), vm.Registers[0xF])
+	// This operations doesn't set VF for overflow
+	assert.Equal(t, byte(0x00), vm.Registers[0xF])
 }
 
 func TestAddConstantOp_ExecuteUnsetOverflow(t *testing.T) {
@@ -94,6 +94,26 @@ func TestAddConstantOp_ExecuteUnsetOverflow(t *testing.T) {
 	// Then
 	assert.Equal(t, byte(0x12), vm.Registers[0x1])
 
-	// Also be sure to unset the carry flag
+	// This operations doesn't change VF for overflow
+	assert.Equal(t, byte(0x01), vm.Registers[0xF])
+}
+
+func TestAddConstantOp_ExecuteOverflowCountdown(t *testing.T) {
+	// Given
+	vm := system.VirtualMachine{}
+	vm.Registers[0x6] = 0x35
+
+	op := AddConstantOp{
+		register: 0x6,
+		value: 0xFF,
+	}
+
+	// When
+	op.Execute(&vm)
+
+	// Then
+	assert.Equal(t, byte(0x34), vm.Registers[0x6])
+
+	// This operations doesn't set VF for overflow
 	assert.Equal(t, byte(0x00), vm.Registers[0xF])
 }
