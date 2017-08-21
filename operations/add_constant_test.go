@@ -8,20 +8,20 @@ import (
 
 
 func TestAddConstantParser_Matches(t *testing.T) {
-	parser := AddConstantParser{}
+	parser := addConstantParser{}
 
-	assert.True(t, parser.Matches(0x7454))
+	assert.True(t, parser.matches(0x7454))
 }
 
 func TestAddConstantParser_DoesNotMatch(t *testing.T) {
-	parser := AddConstantParser{}
+	parser := addConstantParser{}
 
-	assert.False(t, parser.Matches(0x6009))
+	assert.False(t, parser.matches(0x6009))
 }
 
 func TestAddConstantParser_CreateOp(t *testing.T) {
-	parser := AddConstantParser{}
-	op :=parser.CreateOp(0x7A81)
+	parser := addConstantParser{}
+	op :=parser.createOp(0x7A81)
 
 	expected := AddConstantOp{
 		register: 0xA,

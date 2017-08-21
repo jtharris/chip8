@@ -5,12 +5,12 @@ import (
 )
 
 
-type ReturnParser struct {}
-func(p ReturnParser) Matches(opcode system.OpCode) bool {
+type returnParser struct {}
+func(p returnParser) matches(opcode system.OpCode) bool {
 	return opcode == 0x00EE
 }
 
-func(p ReturnParser) CreateOp(opcode system.OpCode) Operation {
+func(p returnParser) createOp(opcode system.OpCode) Operation {
 	return ReturnOp{}
 }
 

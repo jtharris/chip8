@@ -7,34 +7,34 @@ import (
 )
 
 func TestLoadRegistersParser_Matches(t *testing.T) {
-	parser := LoadRegistersParser{}
+	parser := loadRegistersParser{}
 
-	assert.True(t, parser.Matches(0xFB65))
+	assert.True(t, parser.matches(0xFB65))
 }
 
 func TestLoadRegistersParser_DoesNotMatchStart(t *testing.T) {
-	parser := LoadRegistersParser{}
+	parser := loadRegistersParser{}
 
-	assert.False(t, parser.Matches(0xEB65))
+	assert.False(t, parser.matches(0xEB65))
 }
 
 func TestLoadRegistersParser_DoesNotMatchEnd(t *testing.T) {
-	parser := LoadRegistersParser{}
+	parser := loadRegistersParser{}
 
-	assert.False(t, parser.Matches(0xFB63))
+	assert.False(t, parser.matches(0xFB63))
 }
 
 func TestLoadRegistersParser_DoesNotMatchMiddle(t *testing.T) {
-	parser := LoadRegistersParser{}
+	parser := loadRegistersParser{}
 
-	assert.False(t, parser.Matches(0xFB75))
+	assert.False(t, parser.matches(0xFB75))
 }
 
 func TestLoadRegistersParser_CreateOp(t *testing.T) {
-	parser := LoadRegistersParser{}
+	parser := loadRegistersParser{}
 	expected := LoadRegistersOp{topRegister: 0xB}
 
-	assert.Equal(t, expected, parser.CreateOp(0xFB65))
+	assert.Equal(t, expected, parser.createOp(0xFB65))
 }
 
 func TestLoadRegistersOp_String(t *testing.T) {

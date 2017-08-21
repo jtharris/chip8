@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type IfNotKeyParser struct {}
-func(p IfNotKeyParser) Matches(opcode system.OpCode) bool {
+type ifNotKeyParser struct {}
+func(p ifNotKeyParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xE && byte(opcode) == 0xA1
 }
 
-func(p IfNotKeyParser) CreateOp(opcode system.OpCode) Operation {
+func(p ifNotKeyParser) createOp(opcode system.OpCode) Operation {
 	return IfNotKeyOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

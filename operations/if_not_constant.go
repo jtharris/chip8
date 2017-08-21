@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type IfNotConstantParser struct {}
-func(p IfNotConstantParser) Matches(opcode system.OpCode) bool {
+type ifNotConstantParser struct {}
+func(p ifNotConstantParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x4
 }
 
-func(p IfNotConstantParser) CreateOp(opcode system.OpCode) Operation {
+func(p ifNotConstantParser) createOp(opcode system.OpCode) Operation {
 	return IfNotConstantOp{
 		register: uint8(opcode & 0x0F00 >> 8),
 		value: uint8(opcode & 0x00FF),

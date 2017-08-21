@@ -6,12 +6,12 @@ import (
 )
 
 
-type DrawParser struct {}
-func(p DrawParser) Matches(opcode system.OpCode) bool {
+type drawParser struct {}
+func(p drawParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xD
 }
 
-func(p DrawParser) CreateOp(opcode system.OpCode) Operation {
+func(p drawParser) createOp(opcode system.OpCode) Operation {
 	return DrawOp{
 		xRegister: byte(opcode & 0x0F00 >> 8),
 		yRegister: byte(opcode & 0x00F0 >> 4),

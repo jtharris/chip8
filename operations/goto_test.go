@@ -7,22 +7,22 @@ import (
 )
 
 func TestGotoParser_Matches(t *testing.T) {
-	parser := GotoParser{}
+	parser := gotoParser{}
 
-	assert.True(t, parser.Matches(0x1847))
+	assert.True(t, parser.matches(0x1847))
 }
 
 func TestGotoParser_DoesNotMatch(t *testing.T) {
-	parser := GotoParser{}
+	parser := gotoParser{}
 
-	assert.False(t, parser.Matches(0x2847))
+	assert.False(t, parser.matches(0x2847))
 }
 
 func TestGotoParser_CreateOp(t *testing.T) {
-	parser := GotoParser{}
+	parser := gotoParser{}
 	expected := GotoOp{address: 0x08F4}
 
-	assert.Equal(t, expected, parser.CreateOp(0x18F4))
+	assert.Equal(t, expected, parser.createOp(0x18F4))
 }
 
 func TestGotoOp_String(t *testing.T) {

@@ -7,22 +7,22 @@ import (
 )
 
 func TestReturnParser_Matches(t *testing.T) {
-	parser := ReturnParser{}
+	parser := returnParser{}
 
-	assert.True(t, parser.Matches(0x00EE))
+	assert.True(t, parser.matches(0x00EE))
 }
 
 func TestReturnParser_DoesNotMatch(t *testing.T) {
-	parser := ReturnParser{}
+	parser := returnParser{}
 
-	assert.False(t, parser.Matches(0x005E))
+	assert.False(t, parser.matches(0x005E))
 }
 
 func TestReturnParser_CreateOp(t *testing.T) {
-	parser := ReturnParser{}
+	parser := returnParser{}
 	expected := ReturnOp{}
 
-	assert.Equal(t, expected, parser.CreateOp(0x00EE))
+	assert.Equal(t, expected, parser.createOp(0x00EE))
 }
 
 func TestReturnOp_String(t *testing.T) {

@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type SpriteLocationParser struct {}
-func(p SpriteLocationParser) Matches(opcode system.OpCode) bool {
+type spriteLocationParser struct {}
+func(p spriteLocationParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x29
 }
 
-func(p SpriteLocationParser) CreateOp(opcode system.OpCode) Operation {
+func(p spriteLocationParser) createOp(opcode system.OpCode) Operation {
 	return SpriteLocationOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

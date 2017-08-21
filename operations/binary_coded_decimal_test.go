@@ -7,29 +7,29 @@ import (
 )
 
 func TestBinaryCodedDecimalParser_Matches(t *testing.T) {
-	parser := BinaryCodedDecimalParser{}
+	parser := binaryCodedDecimalParser{}
 
-	assert.True(t, parser.Matches(0xf033))
+	assert.True(t, parser.matches(0xf033))
 }
 
 func TestBinaryCodedDecimalParser_DoesNotMatchFirst(t *testing.T) {
-	parser := BinaryCodedDecimalParser{}
+	parser := binaryCodedDecimalParser{}
 
-	assert.False(t, parser.Matches(0x9033))
+	assert.False(t, parser.matches(0x9033))
 }
 
 func TestBinaryCodedDecimalParser_DoesNotMatchLast(t *testing.T) {
-	parser := BinaryCodedDecimalParser{}
+	parser := binaryCodedDecimalParser{}
 
-	assert.False(t, parser.Matches(0xf034))
+	assert.False(t, parser.matches(0xf034))
 }
 
 func TestBinaryCodedDecimalParser_CreateOp(t *testing.T) {
-	parser := BinaryCodedDecimalParser{}
+	parser := binaryCodedDecimalParser{}
 
 	op := BinaryCodedDecimalOp{register: 0x5}
 
-	assert.Equal(t, op, parser.CreateOp(0xf533))
+	assert.Equal(t, op, parser.createOp(0xf533))
 }
 
 func TestBinaryCodedDecimalOp_String(t *testing.T) {

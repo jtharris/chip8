@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-type GetKeyParser struct {}
-func(p GetKeyParser) Matches(opcode system.OpCode) bool {
+type getKeyParser struct {}
+func(p getKeyParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x0A
 }
 
-func(p GetKeyParser) CreateOp(opcode system.OpCode) Operation {
+func(p getKeyParser) createOp(opcode system.OpCode) Operation {
 	return GetKeyOp{
 		register: byte(opcode >> 8) & 0x0F,
 	}

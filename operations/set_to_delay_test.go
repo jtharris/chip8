@@ -7,22 +7,22 @@ import (
 )
 
 func TestSetToDelayParser_Matches(t *testing.T) {
-	parser := SetToDelayParser{}
+	parser := setToDelayParser{}
 
-	assert.True(t, parser.Matches(0xF407))
+	assert.True(t, parser.matches(0xF407))
 }
 
 func TestSetToDelayParser_DoesNotMatch(t *testing.T) {
-	parser := SetToDelayParser{}
+	parser := setToDelayParser{}
 
-	assert.False(t, parser.Matches(0xE407))
+	assert.False(t, parser.matches(0xE407))
 }
 
 func TestSetToDelayParser_CreateOp(t *testing.T) {
-	parser := SetToDelayParser{}
+	parser := setToDelayParser{}
 	expected := SetToDelayOp{register: 0x7}
 
-	assert.Equal(t, expected, parser.CreateOp(0xF707))
+	assert.Equal(t, expected, parser.createOp(0xF707))
 }
 
 func TestSetToDelayOp_String(t *testing.T) {

@@ -7,22 +7,22 @@ import (
 )
 
 func TestClearParser_Matches(t *testing.T) {
-	parser := ClearParser{}
+	parser := clearParser{}
 
-	assert.True(t, parser.Matches(0x00E0))
+	assert.True(t, parser.matches(0x00E0))
 }
 
 func TestClearParser_DoesNotMatch(t *testing.T) {
-	parser := ClearParser{}
+	parser := clearParser{}
 
-	assert.False(t, parser.Matches(0x10E0))
+	assert.False(t, parser.matches(0x10E0))
 }
 
 func TestClearParser_CreateOp(t *testing.T) {
-	parser := ClearParser{}
+	parser := clearParser{}
 	expected := ClearOp{}
 
-	assert.Equal(t, expected, parser.CreateOp(0x00E0))
+	assert.Equal(t, expected, parser.createOp(0x00E0))
 }
 
 func TestClearOp_String(t *testing.T) {

@@ -7,32 +7,32 @@ import (
 )
 
 func TestAssignRegisterParser_Matches(t *testing.T) {
-	parser := AssignRegisterParser{}
+	parser := assignRegisterParser{}
 
-	assert.True(t, parser.Matches(0x80A0))
+	assert.True(t, parser.matches(0x80A0))
 }
 
 func TestAssignRegisterParser_DoesNotMatchFirst(t *testing.T) {
-	parser := AssignRegisterParser{}
+	parser := assignRegisterParser{}
 
-	assert.False(t, parser.Matches(0x90A0))
+	assert.False(t, parser.matches(0x90A0))
 }
 
 func TestAssignRegisterParser_DoesNotMatchLast(t *testing.T) {
-	parser := AssignRegisterParser{}
+	parser := assignRegisterParser{}
 
-	assert.False(t, parser.Matches(0x80AF))
+	assert.False(t, parser.matches(0x80AF))
 }
 
 func TestAssignRegisterParser_CreateOp(t *testing.T) {
-	parser := AssignRegisterParser{}
+	parser := assignRegisterParser{}
 
 	op := AssignRegisterOp{
 		register1: 0xD,
 		register2: 0x4,
 	}
 
-	assert.Equal(t, op, parser.CreateOp(0x8D40))
+	assert.Equal(t, op, parser.createOp(0x8D40))
 }
 
 func TestAssignRegisterOp_String(t *testing.T) {

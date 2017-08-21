@@ -7,28 +7,28 @@ import (
 )
 
 func TestShiftLeftParser_Matches(t *testing.T) {
-	parser := ShiftLeftParser{}
+	parser := shiftLeftParser{}
 
-	assert.True(t, parser.Matches(0x8D3E))
+	assert.True(t, parser.matches(0x8D3E))
 }
 
 func TestShiftLeftParser_DoesNotMatchFirst(t *testing.T) {
-	parser := ShiftLeftParser{}
+	parser := shiftLeftParser{}
 
-	assert.False(t, parser.Matches(0x2D3E))
+	assert.False(t, parser.matches(0x2D3E))
 }
 
 func TestShiftLeftParser_DoesNotMatchLast(t *testing.T) {
-	parser := ShiftLeftParser{}
+	parser := shiftLeftParser{}
 
-	assert.False(t, parser.Matches(0x8D3D))
+	assert.False(t, parser.matches(0x8D3D))
 }
 
 func TestShiftLeftParser_CreateOp(t *testing.T) {
-	parser := ShiftLeftParser{}
+	parser := shiftLeftParser{}
 	expected := ShiftLeftOp{register: 0xD}
 
-	assert.Equal(t, expected, parser.CreateOp(0x8D0E))
+	assert.Equal(t, expected, parser.createOp(0x8D0E))
 }
 
 func TestShiftLeftOp_String(t *testing.T) {

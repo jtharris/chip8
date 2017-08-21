@@ -7,28 +7,28 @@ import (
 )
 
 func TestIfRegisterParser_Matches(t *testing.T) {
-	parser := IfRegisterParser{}
+	parser := ifRegisterParser{}
 
-	assert.True(t, parser.Matches(0x57B0))
+	assert.True(t, parser.matches(0x57B0))
 }
 
 func TestIfRegisterParser_DoesNotMatchFirst(t *testing.T) {
-	parser := IfRegisterParser{}
+	parser := ifRegisterParser{}
 
-	assert.False(t, parser.Matches(0x57B6))
+	assert.False(t, parser.matches(0x57B6))
 }
 
 func TestIfRegisterParser_DoesNotMatchLast(t *testing.T) {
-	parser := IfRegisterParser{}
+	parser := ifRegisterParser{}
 
-	assert.False(t, parser.Matches(0x47B0))
+	assert.False(t, parser.matches(0x47B0))
 }
 
 func TestIfRegisterParser_CreateOp(t *testing.T) {
-	parser := IfRegisterParser{}
+	parser := ifRegisterParser{}
 	expected := IfRegisterOp{register1: 0x7, register2: 0xB}
 
-	assert.Equal(t, expected, parser.CreateOp(0x57B0))
+	assert.Equal(t, expected, parser.createOp(0x57B0))
 }
 
 func TestIfRegisterOp_String(t *testing.T) {

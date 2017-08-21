@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type ShiftRightParser struct {}
-func(p ShiftRightParser) Matches(opcode system.OpCode) bool {
+type shiftRightParser struct {}
+func(p shiftRightParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x6
 }
 
-func(p ShiftRightParser) CreateOp(opcode system.OpCode) Operation {
+func(p shiftRightParser) createOp(opcode system.OpCode) Operation {
 	return ShiftRightOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

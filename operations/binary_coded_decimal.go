@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type BinaryCodedDecimalParser struct {}
-func(p BinaryCodedDecimalParser) Matches(opcode system.OpCode) bool {
+type binaryCodedDecimalParser struct {}
+func(p binaryCodedDecimalParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x33
 }
 
-func(p BinaryCodedDecimalParser) CreateOp(opcode system.OpCode) Operation {
+func(p binaryCodedDecimalParser) createOp(opcode system.OpCode) Operation {
 	return BinaryCodedDecimalOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

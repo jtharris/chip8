@@ -7,25 +7,25 @@ import (
 )
 
 func TestAddToIndexParser_Matches(t *testing.T) {
-	parser := AddToIndexParser{}
-	assert.True(t, parser.Matches(0xFB1E))
+	parser := addToIndexParser{}
+	assert.True(t, parser.matches(0xFB1E))
 }
 
 func TestAddToIndexParser_DoesNotMatchFirst(t *testing.T) {
-	parser := AddToIndexParser{}
-	assert.False(t, parser.Matches(0xCB1E))
+	parser := addToIndexParser{}
+	assert.False(t, parser.matches(0xCB1E))
 }
 
 func TestAddToIndexParser_DoesNotMatchLast(t *testing.T) {
-	parser := AddToIndexParser{}
-	assert.False(t, parser.Matches(0xFB1D))
+	parser := addToIndexParser{}
+	assert.False(t, parser.matches(0xFB1D))
 }
 
 func TestAddToIndexParser_CreateOp(t *testing.T) {
-	parser := AddToIndexParser{}
+	parser := addToIndexParser{}
 	expected := AddToIndexOp{ register: 0xC }
 
-	assert.Equal(t, expected, parser.CreateOp(0xFC1E))
+	assert.Equal(t, expected, parser.createOp(0xFC1E))
 }
 
 func TestAddToIndexOp_String(t *testing.T) {

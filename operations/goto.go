@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-type GotoParser struct {}
-func(p GotoParser) Matches(opcode system.OpCode) bool {
+type gotoParser struct {}
+func(p gotoParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x1
 }
 
-func(p GotoParser) CreateOp(opcode system.OpCode) Operation {
+func(p gotoParser) createOp(opcode system.OpCode) Operation {
 	return GotoOp{
 		address: uint16(opcode) & 0x0FFF,
 	}

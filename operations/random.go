@@ -6,12 +6,12 @@ import (
 	"math/rand"
 )
 
-type RandomParser struct {}
-func(p RandomParser) Matches(opcode system.OpCode) bool {
+type randomParser struct {}
+func(p randomParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xC
 }
 
-func(p RandomParser) CreateOp(opcode system.OpCode) Operation {
+func(p randomParser) createOp(opcode system.OpCode) Operation {
 	return RandomOp{
 		register: byte(opcode & 0x0F00 >> 8),
 		value: byte(opcode),

@@ -7,22 +7,22 @@ import (
 )
 
 func TestDrawParser_Matches(t *testing.T) {
-	parser := DrawParser{}
+	parser := drawParser{}
 
-	assert.True(t, parser.Matches(0xD076))
+	assert.True(t, parser.matches(0xD076))
 }
 
 func TestDrawParser_DoesNotMatch(t *testing.T) {
-	parser := DrawParser{}
+	parser := drawParser{}
 
-	assert.False(t, parser.Matches(0xE076))
+	assert.False(t, parser.matches(0xE076))
 }
 
 func TestDrawParser_CreateOp(t *testing.T) {
-	parser := DrawParser{}
+	parser := drawParser{}
 	expected := DrawOp{xRegister: 0x8, yRegister: 0xD, height: 0x4}
 
-	assert.Equal(t, expected, parser.CreateOp(0xD8D4))
+	assert.Equal(t, expected, parser.createOp(0xD8D4))
 }
 
 func TestDrawOp_String(t *testing.T) {

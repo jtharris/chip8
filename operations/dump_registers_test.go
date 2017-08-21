@@ -7,34 +7,34 @@ import (
 )
 
 func TestDumpRegistersParser_Matches(t *testing.T) {
-	parser := DumpRegistersParser{}
+	parser := dumpRegistersParser{}
 
-	assert.True(t, parser.Matches(0xFB55))
+	assert.True(t, parser.matches(0xFB55))
 }
 
 func TestDumpRegistersParser_DoesNotMatchStart(t *testing.T) {
-	parser := DumpRegistersParser{}
+	parser := dumpRegistersParser{}
 
-	assert.False(t, parser.Matches(0xEB55))
+	assert.False(t, parser.matches(0xEB55))
 }
 
 func TestDumpRegistersParser_DoesNotMatchEnd(t *testing.T) {
-	parser := DumpRegistersParser{}
+	parser := dumpRegistersParser{}
 
-	assert.False(t, parser.Matches(0xFB58))
+	assert.False(t, parser.matches(0xFB58))
 }
 
 func TestDumpRegistersParser_DoesNotMatchMiddle(t *testing.T) {
-	parser := DumpRegistersParser{}
+	parser := dumpRegistersParser{}
 
-	assert.False(t, parser.Matches(0xFB65))
+	assert.False(t, parser.matches(0xFB65))
 }
 
 func TestDumpRegistersParser_CreateOp(t *testing.T) {
-	parser := DumpRegistersParser{}
+	parser := dumpRegistersParser{}
 	expected := DumpRegistersOp{topRegister: 0xB}
 
-	assert.Equal(t, expected, parser.CreateOp(0xFB55))
+	assert.Equal(t, expected, parser.createOp(0xFB55))
 }
 
 func TestDumpRegistersOp_String(t *testing.T) {

@@ -7,22 +7,22 @@ import (
 )
 
 func TestGetKeyParser_Matches(t *testing.T) {
-	parser := GetKeyParser{}
+	parser := getKeyParser{}
 
-	assert.True(t, parser.Matches(0xF30A))
+	assert.True(t, parser.matches(0xF30A))
 }
 
 func TestGetKeyParser_DoesNotMatch(t *testing.T) {
-	parser := GetKeyParser{}
+	parser := getKeyParser{}
 
-	assert.False(t, parser.Matches(0xF32A))
+	assert.False(t, parser.matches(0xF32A))
 }
 
 func TestGetKeyParser_CreateOp(t *testing.T) {
-	parser := GetKeyParser{}
+	parser := getKeyParser{}
 	expected := GetKeyOp{ register: 0xC }
 
-	assert.Equal(t, expected, parser.CreateOp(0xFC0A))
+	assert.Equal(t, expected, parser.createOp(0xFC0A))
 }
 
 func TestGetKeyOp_String(t *testing.T) {

@@ -7,25 +7,25 @@ import (
 )
 
 func TestRandomParser_Matches(t *testing.T) {
-	parser := RandomParser{}
+	parser := randomParser{}
 
-	assert.True(t, parser.Matches(0xC5FE))
+	assert.True(t, parser.matches(0xC5FE))
 }
 
 func TestRandomParser_DoesNotMatch(t *testing.T) {
-	parser := RandomParser{}
+	parser := randomParser{}
 
-	assert.False(t, parser.Matches(0xD5FE))
+	assert.False(t, parser.matches(0xD5FE))
 }
 
 func TestRandomParser_CreateOp(t *testing.T) {
-	parser := RandomParser{}
+	parser := randomParser{}
 	expected := RandomOp{
 		register: 0x5,
 		value: 0xFE,
 	}
 
-	assert.Equal(t, expected, parser.CreateOp(0xC5FE))
+	assert.Equal(t, expected, parser.createOp(0xC5FE))
 }
 
 func TestRandomOp_String(t *testing.T) {

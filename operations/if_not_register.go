@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type IfNotRegisterParser struct {}
-func(p IfNotRegisterParser) Matches(opcode system.OpCode) bool {
+type ifNotRegisterParser struct {}
+func(p ifNotRegisterParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x9 && opcode & 0x000F == 0x0
 }
 
-func(p IfNotRegisterParser) CreateOp(opcode system.OpCode) Operation {
+func(p ifNotRegisterParser) createOp(opcode system.OpCode) Operation {
 	return IfNotRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

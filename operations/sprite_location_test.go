@@ -7,22 +7,22 @@ import (
 )
 
 func TestSpriteLocationParser_Matches(t *testing.T) {
-	parser := SpriteLocationParser{}
+	parser := spriteLocationParser{}
 
-	assert.True(t, parser.Matches(0xF829))
+	assert.True(t, parser.matches(0xF829))
 }
 
 func TestSpriteLocationParser_DoesNotMatch(t *testing.T) {
-	parser := SpriteLocationParser{}
+	parser := spriteLocationParser{}
 
-	assert.False(t, parser.Matches(0xF819))
+	assert.False(t, parser.matches(0xF819))
 }
 
 func TestSpriteLocationParser_CreateOp(t *testing.T) {
-	parser := SpriteLocationParser{}
+	parser := spriteLocationParser{}
 	expected := SpriteLocationOp{register: 0xC}
 
-	assert.Equal(t, expected, parser.CreateOp(0xFC29))
+	assert.Equal(t, expected, parser.createOp(0xFC29))
 }
 
 func TestSpriteLocationOp_String(t *testing.T) {

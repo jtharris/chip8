@@ -7,22 +7,22 @@ import (
 )
 
 func TestSoundTimerParser_Matches(t *testing.T) {
-	parser := SoundTimerParser{}
+	parser := soundTimerParser{}
 
-	assert.True(t, parser.Matches(0xf818))
+	assert.True(t, parser.matches(0xf818))
 }
 
 func TestSoundTimerParser_DoesNotMatch(t *testing.T) {
-	parser := SoundTimerParser{}
+	parser := soundTimerParser{}
 
-	assert.False(t, parser.Matches(0xf815))
+	assert.False(t, parser.matches(0xf815))
 }
 
 func TestSoundTimerParser_CreateOp(t *testing.T) {
-	parser := SoundTimerParser{}
+	parser := soundTimerParser{}
 	expected := SoundTimerOp{register: 0x9}
 
-	assert.Equal(t, expected, parser.CreateOp(0xf915))
+	assert.Equal(t, expected, parser.createOp(0xf915))
 }
 
 func TestSoundTimerOp_String(t *testing.T) {

@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type DelayTimerParser struct {}
-func(p DelayTimerParser) Matches(opcode system.OpCode) bool {
+type delayTimerParser struct {}
+func(p delayTimerParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x15
 }
 
-func(p DelayTimerParser) CreateOp(opcode system.OpCode) Operation {
+func(p delayTimerParser) createOp(opcode system.OpCode) Operation {
 	return DelayTimerOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

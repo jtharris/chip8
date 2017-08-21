@@ -7,31 +7,31 @@ import (
 )
 
 func TestBitwiseXorParser_Matches(t *testing.T) {
-	parser := BitwiseXorParser{}
+	parser := bitwiseXorParser{}
 
-	assert.True(t, parser.Matches(0x8033))
+	assert.True(t, parser.matches(0x8033))
 }
 
 func TestBitwiseXorParser_DoesNotMatchFirst(t *testing.T) {
-	parser := BitwiseXorParser{}
+	parser := bitwiseXorParser{}
 
-	assert.False(t, parser.Matches(0xA033))
+	assert.False(t, parser.matches(0xA033))
 }
 
 func TestBitwiseXorParser_DoesNotMatchLast(t *testing.T) {
-	parser := BitwiseXorParser{}
+	parser := bitwiseXorParser{}
 
-	assert.False(t, parser.Matches(0x8031))
+	assert.False(t, parser.matches(0x8031))
 }
 
 func TestBitwiseXorParser_CreateOp(t *testing.T) {
-	parser := BitwiseXorParser{}
+	parser := bitwiseXorParser{}
 	expected := BitwiseXorOp{
 		register1: 0xA,
 		register2: 0x4,
 	}
 
-	assert.Equal(t, expected, parser.CreateOp(0x8A42))
+	assert.Equal(t, expected, parser.createOp(0x8A42))
 }
 
 func TestBitwiseXorOp_String(t *testing.T) {

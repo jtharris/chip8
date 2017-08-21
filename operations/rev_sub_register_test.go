@@ -7,28 +7,28 @@ import (
 )
 
 func TestReverseSubtractRegisterParser_Matches(t *testing.T) {
-	parser := ReverseSubtractRegisterParser{}
+	parser := reverseSubtractRegisterParser{}
 
-	assert.True(t, parser.Matches(0x82B7))
+	assert.True(t, parser.matches(0x82B7))
 }
 
 func TestReverseSubtractRegisterParser_DoesNotMatchFirst(t *testing.T) {
-	parser := ReverseSubtractRegisterParser{}
+	parser := reverseSubtractRegisterParser{}
 
-	assert.False(t, parser.Matches(0x92B7))
+	assert.False(t, parser.matches(0x92B7))
 }
 
 func TestReverseSubtractRegisterParser_DoesNotMatchLast(t *testing.T) {
-	parser := ReverseSubtractRegisterParser{}
+	parser := reverseSubtractRegisterParser{}
 
-	assert.False(t, parser.Matches(0x82B8))
+	assert.False(t, parser.matches(0x82B8))
 }
 
 func TestReverseSubtractRegisterParser_CreateOp(t *testing.T) {
-	parser := ReverseSubtractRegisterParser{}
+	parser := reverseSubtractRegisterParser{}
 	expected := ReverseSubtractRegisterOp{register1: 0x2, register2: 0xB}
 
-	assert.Equal(t, expected, parser.CreateOp(0x82B7))
+	assert.Equal(t, expected, parser.createOp(0x82B7))
 }
 
 func TestReverseSubtractRegisterOp_String(t *testing.T) {

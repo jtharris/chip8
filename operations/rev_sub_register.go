@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type ReverseSubtractRegisterParser struct {}
-func(p ReverseSubtractRegisterParser) Matches(opcode system.OpCode) bool {
+type reverseSubtractRegisterParser struct {}
+func(p reverseSubtractRegisterParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x7
 }
 
-func(p ReverseSubtractRegisterParser) CreateOp(opcode system.OpCode) Operation {
+func(p reverseSubtractRegisterParser) createOp(opcode system.OpCode) Operation {
 	return ReverseSubtractRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),

@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-type CallParser struct {}
-func(p CallParser) Matches(opcode system.OpCode) bool {
+type callParser struct {}
+func(p callParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x2
 }
 
-func(p CallParser) CreateOp(opcode system.OpCode) Operation {
+func(p callParser) createOp(opcode system.OpCode) Operation {
 	return CallOp{
 		address: uint16(opcode) & 0x0FFF,
 	}

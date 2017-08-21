@@ -7,28 +7,28 @@ import (
 )
 
 func TestShiftRightParser_Matches(t *testing.T) {
-	parser := ShiftRightParser{}
+	parser := shiftRightParser{}
 
-	assert.True(t, parser.Matches(0x8D36))
+	assert.True(t, parser.matches(0x8D36))
 }
 
 func TestShiftRightParser_DoesNotMatchFirst(t *testing.T) {
-	parser := ShiftRightParser{}
+	parser := shiftRightParser{}
 
-	assert.False(t, parser.Matches(0x2D36))
+	assert.False(t, parser.matches(0x2D36))
 }
 
 func TestShiftRightParser_DoesNotMatchLast(t *testing.T) {
-	parser := ShiftRightParser{}
+	parser := shiftRightParser{}
 
-	assert.False(t, parser.Matches(0x8D37))
+	assert.False(t, parser.matches(0x8D37))
 }
 
 func TestShiftRightParser_CreateOp(t *testing.T) {
-	parser := ShiftRightParser{}
+	parser := shiftRightParser{}
 	expected := ShiftRightOp{register: 0xD}
 
-	assert.Equal(t, expected, parser.CreateOp(0x8D06))
+	assert.Equal(t, expected, parser.createOp(0x8D06))
 }
 
 func TestShiftRightOp_String(t *testing.T) {

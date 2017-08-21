@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type LoadRegistersParser struct {}
-func(p LoadRegistersParser) Matches(opcode system.OpCode) bool {
+type loadRegistersParser struct {}
+func(p loadRegistersParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x65
 }
 
-func(p LoadRegistersParser) CreateOp(opcode system.OpCode) Operation {
+func(p loadRegistersParser) createOp(opcode system.OpCode) Operation {
 	return LoadRegistersOp{
 		topRegister: byte(opcode & 0x0F00 >> 8),
 	}

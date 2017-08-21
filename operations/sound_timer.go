@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type SoundTimerParser struct {}
-func(p SoundTimerParser) Matches(opcode system.OpCode) bool {
+type soundTimerParser struct {}
+func(p soundTimerParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x18
 }
 
-func(p SoundTimerParser) CreateOp(opcode system.OpCode) Operation {
+func(p soundTimerParser) createOp(opcode system.OpCode) Operation {
 	return SoundTimerOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}

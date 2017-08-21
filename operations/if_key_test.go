@@ -7,28 +7,28 @@ import (
 )
 
 func TestIfKeyParser_Matches(t *testing.T) {
-	parser := IfKeyParser{}
+	parser := ifKeyParser{}
 
-	assert.True(t, parser.Matches(0xED9E))
+	assert.True(t, parser.matches(0xED9E))
 }
 
 func TestIfKeyParser_DoesNotMatchFirst(t *testing.T) {
-	parser := IfKeyParser{}
+	parser := ifKeyParser{}
 
-	assert.False(t, parser.Matches(0xFD9E))
+	assert.False(t, parser.matches(0xFD9E))
 }
 
 func TestIfKeyParser_DoesNotMatchLast(t *testing.T) {
-	parser := IfKeyParser{}
+	parser := ifKeyParser{}
 
-	assert.False(t, parser.Matches(0xED7E))
+	assert.False(t, parser.matches(0xED7E))
 }
 
 func TestIfKeyParser_CreateOp(t *testing.T) {
-	parser := IfKeyParser{}
+	parser := ifKeyParser{}
 	expected := IfKeyOp{register: 0xA}
 
-	assert.Equal(t, expected, parser.CreateOp(0xEA9E))
+	assert.Equal(t, expected, parser.createOp(0xEA9E))
 }
 
 func TestIfKeyOp_String(t *testing.T) {

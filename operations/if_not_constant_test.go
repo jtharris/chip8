@@ -8,22 +8,22 @@ import (
 
 
 func TestIfNotConstantParser_Matches(t *testing.T) {
-	parser := IfNotConstantParser{}
+	parser := ifNotConstantParser{}
 
-	assert.True(t, parser.Matches(0x47B6))
+	assert.True(t, parser.matches(0x47B6))
 }
 
 func TestIfNotConstantParser_DoesNotMatch(t *testing.T) {
-	parser := IfNotConstantParser{}
+	parser := ifNotConstantParser{}
 
-	assert.False(t, parser.Matches(0x37B6))
+	assert.False(t, parser.matches(0x37B6))
 }
 
 func TestIfNotConstantParser_CreateOp(t *testing.T) {
-	parser := IfNotConstantParser{}
+	parser := ifNotConstantParser{}
 	expected := IfNotConstantOp{register: 0x7, value: 0xB6}
 
-	assert.Equal(t, expected, parser.CreateOp(0x47B6))
+	assert.Equal(t, expected, parser.createOp(0x47B6))
 }
 
 func TestIfNotConstantOp_String(t *testing.T) {

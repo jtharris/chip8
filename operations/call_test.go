@@ -7,22 +7,22 @@ import (
 )
 
 func TestCallParser_Matches(t *testing.T) {
-	parser := CallParser{}
+	parser := callParser{}
 
-	assert.True(t, parser.Matches(0x2FF8))
+	assert.True(t, parser.matches(0x2FF8))
 }
 
 func TestCallParser_DoesNotMatch(t *testing.T) {
-	parser := CallParser{}
+	parser := callParser{}
 
-	assert.False(t, parser.Matches(0x1FF8))
+	assert.False(t, parser.matches(0x1FF8))
 }
 
 func TestCallParser_CreateOp(t *testing.T) {
-	parser := CallParser{}
+	parser := callParser{}
 	expected := CallOp{address: 0x07F9}
 
-	assert.Equal(t, expected, parser.CreateOp(0x27F9))
+	assert.Equal(t, expected, parser.createOp(0x27F9))
 }
 
 func TestCallOp_String(t *testing.T) {

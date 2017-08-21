@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type AssignConstantParser struct {}
-func(p AssignConstantParser) Matches(opcode system.OpCode) bool {
+type assignConstantParser struct {}
+func(p assignConstantParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x6
 }
 
-func(p AssignConstantParser) CreateOp(opcode system.OpCode) Operation {
+func(p assignConstantParser) createOp(opcode system.OpCode) Operation {
 	return AssignConstantOp{
 		register: byte(opcode & 0x0F00 >> 8),
 		value: byte(opcode & 0x00FF),

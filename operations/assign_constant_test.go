@@ -7,26 +7,26 @@ import (
 )
 
 func TestAssignConstantParser_Matches(t *testing.T) {
-	parser := AssignConstantParser{}
+	parser := assignConstantParser{}
 
-	assert.True(t, parser.Matches(0x60AF))
+	assert.True(t, parser.matches(0x60AF))
 }
 
 func TestAssignConstantParser_DoesNotMatch(t *testing.T) {
-	parser := AssignConstantParser{}
+	parser := assignConstantParser{}
 
-	assert.False(t, parser.Matches(0x70AF))
+	assert.False(t, parser.matches(0x70AF))
 }
 
 func TestAssignConstantParser_CreateOp(t *testing.T) {
-	parser := AssignConstantParser{}
+	parser := assignConstantParser{}
 
 	op := AssignConstantOp{
 		register: 0xD,
 		value: 0x15,
 	}
 
-	assert.Equal(t, op, parser.CreateOp(0x7D15))
+	assert.Equal(t, op, parser.createOp(0x7D15))
 }
 
 func TestAssignConstantOp_String(t *testing.T) {

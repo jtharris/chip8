@@ -5,12 +5,12 @@ import (
 )
 
 
-type ClearParser struct {}
-func(p ClearParser) Matches(opcode system.OpCode) bool {
+type clearParser struct {}
+func(p clearParser) matches(opcode system.OpCode) bool {
 	return opcode == 0x00E0
 }
 
-func(p ClearParser) CreateOp(opcode system.OpCode) Operation {
+func(p clearParser) createOp(opcode system.OpCode) Operation {
 	return ClearOp{}
 }
 

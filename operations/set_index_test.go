@@ -7,22 +7,22 @@ import (
 )
 
 func TestSetIndexParser_Matches(t *testing.T) {
-	parser := SetIndexParser{}
+	parser := setIndexParser{}
 
-	assert.True(t, parser.Matches(0xA8C1))
+	assert.True(t, parser.matches(0xA8C1))
 }
 
 func TestSetIndexParser_DoesNotMatch(t *testing.T) {
-	parser := SetIndexParser{}
+	parser := setIndexParser{}
 
-	assert.False(t, parser.Matches(0x98C1))
+	assert.False(t, parser.matches(0x98C1))
 }
 
 func TestSetIndexParser_CreateOp(t *testing.T) {
-	parser := SetIndexParser{}
+	parser := setIndexParser{}
 	expected := SetIndexOp{value: 0x08C1}
 
-	assert.Equal(t, expected, parser.CreateOp(0xA8C1))
+	assert.Equal(t, expected, parser.createOp(0xA8C1))
 }
 
 func TestSetIndexOp_String(t *testing.T) {

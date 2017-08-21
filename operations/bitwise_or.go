@@ -5,12 +5,12 @@ import (
 	"chip8/system"
 )
 
-type BitwiseOrParser struct {}
-func(p BitwiseOrParser) Matches(opcode system.OpCode) bool {
+type bitwiseOrParser struct {}
+func(p bitwiseOrParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x1
 }
 
-func(p BitwiseOrParser) CreateOp(opcode system.OpCode) Operation {
+func(p bitwiseOrParser) createOp(opcode system.OpCode) Operation {
 	return BitwiseOrOp{
 		register1: byte(opcode & 0x0F00 >> 8),
 		register2: byte(opcode & 0x00F0 >> 4),

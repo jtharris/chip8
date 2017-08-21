@@ -7,22 +7,22 @@ import (
 )
 
 func TestDelayTimerParser_Matches(t *testing.T) {
-	parser := DelayTimerParser{}
+	parser := delayTimerParser{}
 
-	assert.True(t, parser.Matches(0xf815))
+	assert.True(t, parser.matches(0xf815))
 }
 
 func TestDelayTimerParser_DoesNotMatch(t *testing.T) {
-	parser := DelayTimerParser{}
+	parser := delayTimerParser{}
 
-	assert.False(t, parser.Matches(0xf825))
+	assert.False(t, parser.matches(0xf825))
 }
 
 func TestDelayTimerParser_CreateOp(t *testing.T) {
-	parser := DelayTimerParser{}
+	parser := delayTimerParser{}
 	expected := DelayTimerOp{register: 0x9}
 
-	assert.Equal(t, expected, parser.CreateOp(0xf915))
+	assert.Equal(t, expected, parser.createOp(0xf915))
 }
 
 func TestDelayTimerOp_String(t *testing.T) {

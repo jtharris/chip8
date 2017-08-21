@@ -7,22 +7,22 @@ import (
 )
 
 func TestIfConstantParser_Matches(t *testing.T) {
-	parser := IfConstantParser{}
+	parser := ifConstantParser{}
 
-	assert.True(t, parser.Matches(0x37B6))
+	assert.True(t, parser.matches(0x37B6))
 }
 
 func TestIfConstantParser_DoesNotMatch(t *testing.T) {
-	parser := IfConstantParser{}
+	parser := ifConstantParser{}
 
-	assert.False(t, parser.Matches(0x57B6))
+	assert.False(t, parser.matches(0x57B6))
 }
 
 func TestIfConstantParser_CreateOp(t *testing.T) {
-	parser := IfConstantParser{}
+	parser := ifConstantParser{}
 	expected := IfConstantOp{register: 0x7, value: 0xB6}
 
-	assert.Equal(t, expected, parser.CreateOp(0x37B6))
+	assert.Equal(t, expected, parser.createOp(0x37B6))
 }
 
 func TestIfConstantOp_String(t *testing.T) {

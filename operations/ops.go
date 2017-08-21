@@ -4,9 +4,9 @@ import (
 	"chip8/system"
 )
 
-type OperationParser interface {
-	Matches(opcode system.OpCode) bool
-	CreateOp(opcode system.OpCode) Operation
+type operationParser interface {
+	matches(opcode system.OpCode) bool
+	createOp(opcode system.OpCode) Operation
 }
 
 type Operation interface {
@@ -14,40 +14,40 @@ type Operation interface {
 	Execute(machine *system.VirtualMachine)
 }
 
-var parsers = []OperationParser{
-	ClearParser{},
-	ReturnParser{},
-	GotoParser{},
-	CallParser{},
-	IfConstantParser{},
-	IfNotConstantParser{},
-	IfRegisterParser{},
-	AssignConstantParser{},
-	AddConstantParser{},
-	AssignRegisterParser{},
-	BitwiseOrParser{},
-	BitwiseAndParser{},
-	BitwiseXorParser{},
-	AddRegisterParser{},
-	SubtractRegisterParser{},
-	ShiftRightParser{},
-	ShiftLeftParser{},
-	ReverseSubtractRegisterParser{},
-	SetIndexParser{},
-	DrawParser{},
-	DelayTimerParser{},
-	SetToDelayParser{},
-	RandomParser{},
-	IfNotKeyParser{},
-	SoundTimerParser{},
-	BinaryCodedDecimalParser{},
-	LoadRegistersParser{},
-	SpriteLocationParser{},
-	AddToIndexParser{},
-	IfKeyParser{},
-	IfNotRegisterParser{},
-	DumpRegistersParser{},
-	GetKeyParser{},
+var parsers = []operationParser{
+	clearParser{},
+	returnParser{},
+	gotoParser{},
+	callParser{},
+	ifConstantParser{},
+	ifNotConstantParser{},
+	ifRegisterParser{},
+	assignConstantParser{},
+	addConstantParser{},
+	assignRegisterParser{},
+	bitwiseOrParser{},
+	bitwiseAndParser{},
+	bitwiseXorParser{},
+	addRegisterParser{},
+	subtractRegisterParser{},
+	shiftRightParser{},
+	shiftLeftParser{},
+	reverseSubtractRegisterParser{},
+	setIndexParser{},
+	drawParser{},
+	delayTimerParser{},
+	setToDelayParser{},
+	randomParser{},
+	ifNotKeyParser{},
+	soundTimerParser{},
+	binaryCodedDecimalParser{},
+	loadRegistersParser{},
+	spriteLocationParser{},
+	addToIndexParser{},
+	ifKeyParser{},
+	ifNotRegisterParser{},
+	dumpRegistersParser{},
+	getKeyParser{},
 }
 
 var ops = make(map[system.OpCode] Operation)
@@ -57,8 +57,8 @@ func CreateOperation(opcode system.OpCode) Operation {
 
 	if !ok {
 		for _, parser := range parsers {
-			if parser.Matches(opcode) {
-				op = parser.CreateOp(opcode)
+			if parser.matches(opcode) {
+				op = parser.createOp(opcode)
 				break
 			}
 		}
