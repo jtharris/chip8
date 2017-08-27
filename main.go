@@ -9,6 +9,8 @@ import (
 	"flag"
 )
 
+// This is the main entrypoint of the program.  Parse any command line flags, read the game binary, and start the
+// emulation process.
 func main() {
 	printOps := flag.Bool("print", false, "Print program opcodes, rather than run the binary")
 	useTerm := flag.Bool("terminal", false, "Use the terminal renderer instead of opengl.")
@@ -29,6 +31,8 @@ func main() {
 	}
 }
 
+// Read a file containing a CHIP8 game binary, and return a virtual machine struct with the game loaded into
+// memory.
 func read(fileName string) *system.VirtualMachine {
 	data, err := ioutil.ReadFile(fileName)
 
@@ -42,6 +46,7 @@ func read(fileName string) *system.VirtualMachine {
 	return &vm
 }
 
+// Start the three main loops:  machine, timers, and display
 func run(vm *system.VirtualMachine, display system.Display) {
 	go startMachine(vm)
 	go startTimers(vm)

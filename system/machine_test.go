@@ -49,6 +49,7 @@ func TestVirtualMachine_IncrementPC(t *testing.T) {
 }
 
 func TestVirtualMachine_DecrementTimersWhenZero(t *testing.T) {
+	// Given
 	vm := NewVirtualMachine()
 
 	// When
@@ -60,6 +61,7 @@ func TestVirtualMachine_DecrementTimersWhenZero(t *testing.T) {
 }
 
 func TestVirtualMachine_DecrementTimersWhenNonZero(t *testing.T) {
+	// Given
 	vm := NewVirtualMachine()
 	vm.DelayTimer = 0x0A
 	vm.SoundTimer = 0x03
@@ -73,9 +75,11 @@ func TestVirtualMachine_DecrementTimersWhenNonZero(t *testing.T) {
 }
 
 func TestVirtualMachine_PixelSetAt(t *testing.T) {
+	// Given
 	vm := NewVirtualMachine()
 	vm.Pixels[15] = 0xF
 
+	// Then
 	assert.True(t, vm.PixelSetAt(63, 15))
 	assert.True(t, vm.PixelSetAt(60, 15))
 

@@ -6,6 +6,7 @@ import (
 	"runtime"
 )
 
+// OpenGL needs to run on the main OS Thread or bad things happen...
 func init() {
 	runtime.LockOSThread()
 }
@@ -19,6 +20,7 @@ func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 		panic(err)
 	}
 
+	// Set up the GLFW window
 	window, err := glfw.CreateWindow(800, 600, "Chip8", nil, nil)
 	if err != nil {
 		panic(err)
@@ -32,12 +34,15 @@ func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 		panic(err)
 	}
 
+	// Set the coordinate system to be 64x32 "pixels" and set colors
 	gl.Ortho(0, 64, 32, 0, 0, 1)
 	gl.ClearColor(0.0, 0.0, 0.0, 1.0)
+	gl.Color3f(0.0, 1.0, 0.0)
 
+	// Main GL loop
 	for !window.ShouldClose() {
-		d.UpdateKeys(window, vm)
-		d.Render(vm)
+		d.updateKeys(window, vm)
+		d.render(vm)
 		window.SwapBuffers()
 		glfw.PollEvents()
 	}
@@ -45,9 +50,9 @@ func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 	glfw.Terminate()
 }
 
-func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
+// Render the current state of pixels in the virtual machine
+func (d *OpenGLDisplay) render(vm *VirtualMachine) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
-	gl.Color3f(0.0, 1.0, 0.0)
 	gl.Begin(gl.QUADS)
 	for col := 0; col < 64; col++ {
 		for row := range vm.Pixels {
@@ -64,11 +69,14 @@ func (d *OpenGLDisplay) Render(vm *VirtualMachine) {
 	gl.End()
 }
 
+// Hardcoded mapping of qwerty keys to the CHIP8 hex keys - the index of the list (0-15) is the hex key being mapped
+// So, for example, hex key 0xA holds the state of the "Z" key
 var keyMap = []glfw.Key {glfw.KeyX, glfw.Key1, glfw.Key2, glfw.Key3, glfw.KeyQ, glfw.KeyW, glfw.KeyE, glfw.KeyA,
 	glfw.KeyS, glfw.KeyD, glfw.KeyZ, glfw.KeyC, glfw.Key4, glfw.KeyR, glfw.KeyF, glfw.KeyV,
 }
 
-func (d *OpenGLDisplay) UpdateKeys(window *glfw.Window, vm *VirtualMachine) {
+// Update the state of the input key map on the virtual machine
+func (d *OpenGLDisplay) updateKeys(window *glfw.Window, vm *VirtualMachine) {
 	for hex, input := range keyMap {
 		vm.Keyboard[hex] = window.GetKey(input) == glfw.Press
 	}

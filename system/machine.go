@@ -4,6 +4,10 @@ import (
 	"encoding/hex"
 )
 
+type Display interface {
+	Start(vm *VirtualMachine)
+}
+
 type OpCode uint16
 func(o OpCode) String() string {
 	bytes := []byte{byte(uint16(o) >> 8), byte(o)}

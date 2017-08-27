@@ -17,27 +17,17 @@ func (t *TerminalDisplay) Start(vm *VirtualMachine) {
 	}
 
 	for !t.shouldQuit {
-		t.UpdateKeys(vm)
-		t.Render(vm)
+		t.updateKeys(vm)
+		t.render(vm)
 		time.Sleep(time.Millisecond)
 	}
 
 	termbox.Close()
 }
 
-func (t *TerminalDisplay) Render(vm *VirtualMachine) {
+func (t *TerminalDisplay) render(vm *VirtualMachine) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
-
-	// Draw the border
-	for col := 0; col < 66; col++ {
-		termbox.SetCell(col, 0, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
-		termbox.SetCell(col, 33, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
-	}
-
-	for row := 1; row < 33; row++ {
-		termbox.SetCell(0, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
-		termbox.SetCell(65, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
-	}
+	drawBorder()
 
 	for col := 0; col < 64; col++  {
 		for row := range vm.Pixels {
@@ -50,11 +40,23 @@ func (t *TerminalDisplay) Render(vm *VirtualMachine) {
 	termbox.Flush()
 }
 
+func drawBorder() {
+	for col := 0; col < 66; col++ {
+		termbox.SetCell(col, 0, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(col, 33, '\u2550', termbox.ColorGreen, termbox.ColorDefault)
+	}
+
+	for row := 1; row < 33; row++ {
+		termbox.SetCell(0, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(65, row, '\u2551', termbox.ColorGreen, termbox.ColorDefault)
+	}
+}
+
 
 var termKeyMap = []rune {'x', '1', '2', '3', 'q', 'w', 'e', 'a', 's', 'd', 'z', 'c', '4', 'r', 'f', 'v',}
 
-func (t *TerminalDisplay) UpdateKeys(vm *VirtualMachine) {
-	// Gather up all the keyboard events for 5ms then exit
+func (t *TerminalDisplay) updateKeys(vm *VirtualMachine) {
+	// Gather up all the keyboard events for 2ms then exit
 	time.AfterFunc(time.Millisecond * 2, termbox.Interrupt)
 
 	for {
