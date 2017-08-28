@@ -4,16 +4,20 @@ import (
 	"encoding/hex"
 )
 
+// Display is responsible for rendering pixels and handling user input
 type Display interface {
 	Start(vm *VirtualMachine)
 }
 
+// OpCode represents an instruction for the virtual machine
 type OpCode uint16
 func(o OpCode) String() string {
 	bytes := []byte{byte(uint16(o) >> 8), byte(o)}
 	return hex.EncodeToString(bytes)
 }
 
+// VirtualMachine the core CHIP8 architecture, containing memory, registers, input, and pixel data
+// For reference, see:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.0
 type VirtualMachine struct {
 	Memory [4096]byte
 	Registers [16]byte
@@ -34,6 +38,7 @@ type VirtualMachine struct {
 	Running bool
 }
 
+// NewVirtualMachine creates a new virtual machine, loading fonts at the start of the memory space
 func NewVirtualMachine() VirtualMachine {
 	// TODO:  Explain memory layout here...
 	vm := VirtualMachine{}
@@ -48,6 +53,8 @@ func NewVirtualMachine() VirtualMachine {
 	return vm
 }
 
+// Load data into memory.  By convention, 0x0 - 0x200 is reserved, so data is loaded
+// starting at memory address 0x200
 func (vm *VirtualMachine) Load(data []byte) {
 
 	// Load the memory starting in application space
@@ -58,6 +65,7 @@ func (vm *VirtualMachine) Load(data []byte) {
 	vm.ProgramCounter = 512
 }
 
+// OpCodeAt returns an op code at the given memory address
 func (vm *VirtualMachine) OpCodeAt(address uint16) OpCode {
 	firstByte := uint16(vm.Memory[address])
 	secondByte := uint16(vm.Memory[address + 1])
@@ -65,14 +73,17 @@ func (vm *VirtualMachine) OpCodeAt(address uint16) OpCode {
 	return OpCode((firstByte << 8) + secondByte)
 }
 
-func (vm *VirtualMachine) CurrentOpcode() OpCode {
+// CurrentOpCode returns the op code referenced by the program counter register
+func (vm *VirtualMachine) CurrentOpCode() OpCode {
 	return vm.OpCodeAt(vm.ProgramCounter)
 }
 
+// IncrementPC advances the program counter to reference the next op code
 func (vm *VirtualMachine) IncrementPC() {
 	vm.ProgramCounter += 2
 }
 
+// DecrementTimers decrements delay timer and the sound timer, if they are positive
 func (vm *VirtualMachine) DecrementTimers() {
 	if vm.DelayTimer > 0 {
 		vm.DelayTimer--
@@ -83,6 +94,7 @@ func (vm *VirtualMachine) DecrementTimers() {
 	}
 }
 
+// PixelSetAt determines if the pixel located at coordinate (x, y) is on
 func (vm *VirtualMachine) PixelSetAt(x int, y int) bool {
 	columnFilter := uint64(1) << (63 - uint(x))
 	return vm.Pixels[y] & columnFilter == columnFilter

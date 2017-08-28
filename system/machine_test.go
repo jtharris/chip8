@@ -33,7 +33,7 @@ func TestVirtualMachine_CurrentOpcode(t *testing.T) {
 	vm.Load([]byte{0x0, 0x0, 0x0F, 0xA5, 0x04, 0x7D})
 	vm.ProgramCounter = 0x204
 
-	assert.Equal(t, OpCode(0x047D), vm.CurrentOpcode())
+	assert.Equal(t, OpCode(0x047D), vm.CurrentOpCode())
 }
 
 func TestVirtualMachine_IncrementPC(t *testing.T) {

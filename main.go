@@ -73,7 +73,7 @@ func startMachine(vm *system.VirtualMachine) {
 
 	for range ticker.C {
 		if vm.Running {
-			opcode := vm.CurrentOpcode()
+			opcode := vm.CurrentOpCode()
 			op := operations.CreateOperation(opcode)
 			op.Execute(vm)
 			vm.IncrementPC()
