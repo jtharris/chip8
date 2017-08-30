@@ -69,6 +69,7 @@ func startTimers(vm *system.VirtualMachine) {
 }
 
 func startMachine(vm *system.VirtualMachine) {
+	// I haven't found any official spec for the clock speed, but this empirically felt pretty good
 	ticker := time.NewTicker(time.Millisecond * 3)
 
 	for range ticker.C {

@@ -11,8 +11,10 @@ func init() {
 	runtime.LockOSThread()
 }
 
+// OpenGLDisplay is a Display for rendering a virtual machine to an OpenGL window
 type OpenGLDisplay struct {}
 
+// Start the render loop, terminating when the window is closed
 func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 	err := glfw.Init()
 

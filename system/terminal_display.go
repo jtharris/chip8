@@ -5,10 +5,12 @@ import (
 	"time"
 )
 
+// TerminalDisplay is a Display for rendering a virtual machine to a terminal using termbox
 type TerminalDisplay struct {
 	shouldQuit bool
 }
 
+// Start the render loop, terminating when the escape key is pressed
 func (t *TerminalDisplay) Start(vm *VirtualMachine) {
 	err := termbox.Init()
 
