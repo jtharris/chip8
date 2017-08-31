@@ -1,7 +1,7 @@
 package system
 
 import (
-	"encoding/hex"
+	"fmt"
 )
 
 // Display is responsible for rendering pixels and handling user input
@@ -12,8 +12,7 @@ type Display interface {
 // OpCode represents an instruction for the virtual machine
 type OpCode uint16
 func(o OpCode) String() string {
-	bytes := []byte{byte(uint16(o) >> 8), byte(o)}
-	return hex.EncodeToString(bytes)
+	return fmt.Sprintf("%04X", uint16(o))
 }
 
 // VirtualMachine the core CHIP8 architecture, containing memory, registers, input, and pixel data

@@ -12,10 +12,10 @@ type UnknownOp struct{
 
 // String returns a text representation of this operation
 func (o UnknownOp) String() string {
-	return "Unknown Operation"
+	return fmt.Sprint("Unknown Operation:  ", o.code)
 }
 
 // Execute panics if invoked, as this represents an unknown or unimplemented instruction
 func (o UnknownOp) Execute(machine *system.VirtualMachine) {
-	panic(fmt.Sprint("Unknown opcode:  ", o.code))
+	panic(o.String())
 }
