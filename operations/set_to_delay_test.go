@@ -28,7 +28,7 @@ func TestSetToDelayParser_CreateOp(t *testing.T) {
 func TestSetToDelayOp_String(t *testing.T) {
 	op := SetToDelayOp{register: 0xA}
 
-	assert.Equal(t, "VA = delay_timer", op.String())
+	assert.Equal(t, "VA = DT", op.String())
 }
 
 func TestSetToDelayOp_Execute(t *testing.T) {

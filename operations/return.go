@@ -4,7 +4,6 @@ import (
 	"chip8/system"
 )
 
-
 // Parser for ReturnOp
 type returnParser struct {}
 func(p returnParser) matches(opcode system.OpCode) bool {
