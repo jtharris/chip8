@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestShiftRightParser_Matches(t *testing.T) {
@@ -40,7 +40,7 @@ func TestShiftRightOp_String(t *testing.T) {
 func TestShiftRight_Execute1Overflow(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	vm.Registers[0xD] = 0x2F	// 0010 1111
+	vm.Registers[0xD] = 0x2F // 0010 1111
 
 	op := ShiftRightOp{register: 0xD}
 
@@ -48,7 +48,7 @@ func TestShiftRight_Execute1Overflow(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	expected := byte(0x17)		// 0001 0111
+	expected := byte(0x17) // 0001 0111
 	assert.Equal(t, expected, vm.Registers[0xD])
 
 	// Also check the overflow register
@@ -58,7 +58,7 @@ func TestShiftRight_Execute1Overflow(t *testing.T) {
 func TestShiftRight_Execute0Overflow(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	vm.Registers[0xD] = 0x2E	// 0010 1110
+	vm.Registers[0xD] = 0x2E // 0010 1110
 
 	op := ShiftRightOp{register: 0xD}
 
@@ -66,7 +66,7 @@ func TestShiftRight_Execute0Overflow(t *testing.T) {
 	op.Execute(&vm)
 
 	// Then
-	expected := byte(0x17)		// 0001 0111
+	expected := byte(0x17) // 0001 0111
 	assert.Equal(t, expected, vm.Registers[0xD])
 
 	// Also check the overflow register

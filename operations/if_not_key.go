@@ -1,17 +1,18 @@
 package operations
 
 import (
-	"fmt"
 	"chip8/system"
+	"fmt"
 )
 
 // Parser for IfNotKeyOp
-type ifNotKeyParser struct {}
-func(p ifNotKeyParser) matches(opcode system.OpCode) bool {
-	return opcode >> 12 == 0xE && byte(opcode) == 0xA1
+type ifNotKeyParser struct{}
+
+func (p ifNotKeyParser) matches(opcode system.OpCode) bool {
+	return opcode>>12 == 0xE && byte(opcode) == 0xA1
 }
 
-func(p ifNotKeyParser) createOp(opcode system.OpCode) Operation {
+func (p ifNotKeyParser) createOp(opcode system.OpCode) Operation {
 	return IfNotKeyOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}
@@ -23,12 +24,12 @@ type IfNotKeyOp struct {
 }
 
 // String returns a text representation of this operation
-func(o IfNotKeyOp) String() string {
+func (o IfNotKeyOp) String() string {
 	return fmt.Sprintf("If key != V%X", o.register)
 }
 
 // Execute this operation on the given virtual machine
-func(o IfNotKeyOp) Execute(vm *system.VirtualMachine) {
+func (o IfNotKeyOp) Execute(vm *system.VirtualMachine) {
 	key := vm.Registers[o.register]
 	if !vm.Keyboard[key] {
 		vm.IncrementPC()

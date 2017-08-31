@@ -54,7 +54,7 @@ var parsers = []operationParser{
 }
 
 // Cache for OpCode -> Operation mapping, lazily evaluated
-var ops = make(map[system.OpCode] Operation)
+var ops = make(map[system.OpCode]Operation)
 
 // CreateOperation is a factory to create the correct Operation for the given OpCode
 func CreateOperation(opcode system.OpCode) Operation {

@@ -1,17 +1,18 @@
 package operations
 
 import (
-	"fmt"
 	"chip8/system"
+	"fmt"
 )
 
 // Parser for SubtractRegisterOp
-type subtractRegisterParser struct {}
-func(p subtractRegisterParser) matches(opcode system.OpCode) bool {
-	return opcode >> 12 == 0x8 && opcode & 0x000F == 0x5
+type subtractRegisterParser struct{}
+
+func (p subtractRegisterParser) matches(opcode system.OpCode) bool {
+	return opcode>>12 == 0x8 && opcode&0x000F == 0x5
 }
 
-func(p subtractRegisterParser) createOp(opcode system.OpCode) Operation {
+func (p subtractRegisterParser) createOp(opcode system.OpCode) Operation {
 	return SubtractRegisterOp{
 		register1: uint8(opcode & 0x0F00 >> 8),
 		register2: uint8(opcode & 0x00F0 >> 4),
@@ -25,12 +26,12 @@ type SubtractRegisterOp struct {
 }
 
 // String returns a text representation of this operation
-func(o SubtractRegisterOp) String() string {
+func (o SubtractRegisterOp) String() string {
 	return fmt.Sprintf("V%X -= V%X", o.register1, o.register2)
 }
 
 // Execute this operation on the given virtual machine
-func(o SubtractRegisterOp) Execute(vm *system.VirtualMachine) {
+func (o SubtractRegisterOp) Execute(vm *system.VirtualMachine) {
 	val1 := vm.Registers[o.register1]
 	val2 := vm.Registers[o.register2]
 

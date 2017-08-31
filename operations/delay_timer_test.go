@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestDelayTimerParser_Matches(t *testing.T) {

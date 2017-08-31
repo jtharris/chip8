@@ -11,22 +11,23 @@ type Display interface {
 
 // OpCode represents an instruction for the virtual machine
 type OpCode uint16
-func(o OpCode) String() string {
+
+func (o OpCode) String() string {
 	return fmt.Sprintf("%04X", uint16(o))
 }
 
 // VirtualMachine the core CHIP8 architecture, containing memory, registers, input, and pixel data
 // For reference, see:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.0
 type VirtualMachine struct {
-	Memory [4096]byte		// http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.1
-	Registers [16]byte		// Abbreviated as V0-VF:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
-	Stack []uint16
+	Memory    [4096]byte // http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.1
+	Registers [16]byte   // Abbreviated as V0-VF:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
+	Stack     []uint16
 
-	ProgramCounter uint16	// Abbreviated as PC
-	IndexRegister uint16	// Abbreviated as I:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
+	ProgramCounter uint16 // Abbreviated as PC
+	IndexRegister  uint16 // Abbreviated as I:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
 
-	DelayTimer byte			// Abbreviated as DT
-	SoundTimer byte			// Abbreviated as ST
+	DelayTimer byte // Abbreviated as DT
+	SoundTimer byte // Abbreviated as ST
 
 	// Represents the state of key presses  - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.3
 	Keyboard [16]bool
@@ -57,7 +58,7 @@ func (vm *VirtualMachine) Load(data []byte) {
 
 	// Load the memory starting in application space
 	for i := 0; i < len(data); i++ {
-		vm.Memory[512 + i] = data[i]
+		vm.Memory[512+i] = data[i]
 	}
 
 	vm.ProgramCounter = 512
@@ -66,7 +67,7 @@ func (vm *VirtualMachine) Load(data []byte) {
 // OpCodeAt returns an op code at the given memory address
 func (vm *VirtualMachine) OpCodeAt(address uint16) OpCode {
 	firstByte := uint16(vm.Memory[address])
-	secondByte := uint16(vm.Memory[address + 1])
+	secondByte := uint16(vm.Memory[address+1])
 
 	return OpCode((firstByte << 8) + secondByte)
 }
@@ -95,9 +96,8 @@ func (vm *VirtualMachine) DecrementTimers() {
 // PixelSetAt determines if the pixel located at coordinate (x, y) is on
 func (vm *VirtualMachine) PixelSetAt(x int, y int) bool {
 	columnFilter := uint64(1) << (63 - uint(x))
-	return vm.Pixels[y] & columnFilter == columnFilter
+	return vm.Pixels[y]&columnFilter == columnFilter
 }
-
 
 // CHIP-8 Font Set.
 // See here for reference:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4

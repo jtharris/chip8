@@ -2,8 +2,8 @@ package operations
 
 import (
 	"chip8/system"
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestAssignRegisterParser_Matches(t *testing.T) {

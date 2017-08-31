@@ -7,13 +7,14 @@ import (
 
 // Parser for AddToIndexOp
 type addToIndexParser struct{}
+
 func (p addToIndexParser) matches(opcode system.OpCode) bool {
-	return opcode >> 12 == 0xF && byte(opcode) == 0x1E
+	return opcode>>12 == 0xF && byte(opcode) == 0x1E
 }
 
 func (p addToIndexParser) createOp(opcode system.OpCode) Operation {
 	return AddToIndexOp{
-		register: byte(opcode >> 8) & 0x0F,
+		register: byte(opcode>>8) & 0x0F,
 	}
 }
 

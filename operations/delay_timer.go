@@ -1,17 +1,18 @@
 package operations
 
 import (
-	"fmt"
 	"chip8/system"
+	"fmt"
 )
 
 // Parser for DelayTimerOp
-type delayTimerParser struct {}
-func(p delayTimerParser) matches(opcode system.OpCode) bool {
-	return opcode >> 12 == 0xF && byte(opcode) == 0x15
+type delayTimerParser struct{}
+
+func (p delayTimerParser) matches(opcode system.OpCode) bool {
+	return opcode>>12 == 0xF && byte(opcode) == 0x15
 }
 
-func(p delayTimerParser) createOp(opcode system.OpCode) Operation {
+func (p delayTimerParser) createOp(opcode system.OpCode) Operation {
 	return DelayTimerOp{
 		register: byte(opcode & 0x0F00 >> 8),
 	}
@@ -23,11 +24,11 @@ type DelayTimerOp struct {
 }
 
 // String returns a text representation of this operation
-func(o DelayTimerOp) String() string {
+func (o DelayTimerOp) String() string {
 	return fmt.Sprintf("DT = V%X", o.register)
 }
 
 // Execute this operation on the given virtual machine
-func(o DelayTimerOp) Execute(vm *system.VirtualMachine) {
+func (o DelayTimerOp) Execute(vm *system.VirtualMachine) {
 	vm.DelayTimer = vm.Registers[o.register]
 }

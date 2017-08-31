@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestSpriteLocationParser_Matches(t *testing.T) {
@@ -34,7 +34,7 @@ func TestSpriteLocationOp_String(t *testing.T) {
 func TestSpriteLocationOp_Execute(t *testing.T) {
 	// Given
 	op := SpriteLocationOp{register: 0x7}
-	vm := system.NewVirtualMachine()	// using constructor here to populate the font data
+	vm := system.NewVirtualMachine() // using constructor here to populate the font data
 	vm.Registers[0x7] = 0x9
 
 	// When

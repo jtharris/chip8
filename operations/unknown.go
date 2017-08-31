@@ -6,7 +6,7 @@ import (
 )
 
 // UnknownOp represents an instruction that is not recognized - a Null Object
-type UnknownOp struct{
+type UnknownOp struct {
 	code system.OpCode
 }
 

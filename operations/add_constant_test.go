@@ -1,11 +1,10 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
-
 
 func TestAddConstantParser_Matches(t *testing.T) {
 	parser := addConstantParser{}
@@ -21,11 +20,11 @@ func TestAddConstantParser_DoesNotMatch(t *testing.T) {
 
 func TestAddConstantParser_CreateOp(t *testing.T) {
 	parser := addConstantParser{}
-	op :=parser.createOp(0x7A81)
+	op := parser.createOp(0x7A81)
 
 	expected := AddConstantOp{
 		register: 0xA,
-		value: 0x81,
+		value:    0x81,
 	}
 
 	assert.Equal(t, expected, op)
@@ -34,7 +33,7 @@ func TestAddConstantParser_CreateOp(t *testing.T) {
 func TestAddConstantOp_String(t *testing.T) {
 	op := AddConstantOp{
 		register: 0x3,
-		value: 0xFF,
+		value:    0xFF,
 	}
 
 	assert.Equal(t, "V3 += FF", op.String())
@@ -47,7 +46,7 @@ func TestAddConstantOp_Execute(t *testing.T) {
 
 	op := AddConstantOp{
 		register: 0xA,
-		value: 0x06,
+		value:    0x06,
 	}
 
 	// When
@@ -64,7 +63,7 @@ func TestAddConstantOp_ExecuteOverflow(t *testing.T) {
 
 	op := AddConstantOp{
 		register: 0x1,
-		value: 0x04,
+		value:    0x04,
 	}
 
 	// When
@@ -85,7 +84,7 @@ func TestAddConstantOp_ExecuteUnsetOverflow(t *testing.T) {
 
 	op := AddConstantOp{
 		register: 0x1,
-		value: 0x4,
+		value:    0x4,
 	}
 
 	// When
@@ -105,7 +104,7 @@ func TestAddConstantOp_ExecuteOverflowCountdown(t *testing.T) {
 
 	op := AddConstantOp{
 		register: 0x6,
-		value: 0xFF,
+		value:    0xFF,
 	}
 
 	// When

@@ -1,8 +1,8 @@
 package operations
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestCreateOperationFound(t *testing.T) {

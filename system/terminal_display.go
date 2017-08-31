@@ -31,10 +31,10 @@ func (t *TerminalDisplay) render(vm *VirtualMachine) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
 	drawBorder()
 
-	for col := 0; col < 64; col++  {
+	for col := 0; col < 64; col++ {
 		for row := range vm.Pixels {
 			if vm.PixelSetAt(col, row) {
-				termbox.SetCell(col + 1, row + 1, ' ', termbox.ColorGreen, termbox.ColorGreen)
+				termbox.SetCell(col+1, row+1, ' ', termbox.ColorGreen, termbox.ColorGreen)
 			}
 		}
 	}
@@ -54,12 +54,11 @@ func drawBorder() {
 	}
 }
 
-
-var termKeyMap = []rune {'x', '1', '2', '3', 'q', 'w', 'e', 'a', 's', 'd', 'z', 'c', '4', 'r', 'f', 'v',}
+var termKeyMap = []rune{'x', '1', '2', '3', 'q', 'w', 'e', 'a', 's', 'd', 'z', 'c', '4', 'r', 'f', 'v'}
 
 func (t *TerminalDisplay) updateKeys(vm *VirtualMachine) {
 	// Gather up all the keyboard events for 2ms then exit
-	time.AfterFunc(time.Millisecond * 2, termbox.Interrupt)
+	time.AfterFunc(time.Millisecond*2, termbox.Interrupt)
 
 	for {
 		ev := termbox.PollEvent()

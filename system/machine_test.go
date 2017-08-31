@@ -1,8 +1,8 @@
 package system
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestNewVirtualMachineHasFonts(t *testing.T) {

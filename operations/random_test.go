@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestRandomParser_Matches(t *testing.T) {
@@ -22,7 +22,7 @@ func TestRandomParser_CreateOp(t *testing.T) {
 	parser := randomParser{}
 	expected := RandomOp{
 		register: 0x5,
-		value: 0xFE,
+		value:    0xFE,
 	}
 
 	assert.Equal(t, expected, parser.createOp(0xC5FE))
@@ -31,7 +31,7 @@ func TestRandomParser_CreateOp(t *testing.T) {
 func TestRandomOp_String(t *testing.T) {
 	op := RandomOp{
 		register: 0x5,
-		value: 0xFE,
+		value:    0xFE,
 	}
 
 	assert.Equal(t, "V5 = rand(255) & FE", op.String())
@@ -43,7 +43,7 @@ func TestRandomOp_Execute(t *testing.T) {
 
 	op := RandomOp{
 		register: 0x5,
-		value: 0xFE,
+		value:    0xFE,
 	}
 
 	// When

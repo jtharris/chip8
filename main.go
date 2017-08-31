@@ -1,12 +1,12 @@
 package main
 
 import (
-	"io/ioutil"
-	"chip8/system"
 	"chip8/operations"
-	"time"
-	"fmt"
+	"chip8/system"
 	"flag"
+	"fmt"
+	"io/ioutil"
+	"time"
 )
 
 // This is the main entrypoint of the program.  Parse any command line flags, read the game binary, and start the
@@ -54,7 +54,7 @@ func run(vm *system.VirtualMachine, display system.Display) {
 }
 
 func startTimers(vm *system.VirtualMachine) {
-	ticker := time.NewTicker(time.Microsecond * 16667)	// Running at 60 Hz
+	ticker := time.NewTicker(time.Microsecond * 16667) // Running at 60 Hz
 
 	for range ticker.C {
 		if vm.Running {

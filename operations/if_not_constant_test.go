@@ -1,11 +1,10 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
-
 
 func TestIfNotConstantParser_Matches(t *testing.T) {
 	parser := ifNotConstantParser{}
@@ -61,4 +60,3 @@ func TestIfNotConstantOp_ExecuteNoMatch(t *testing.T) {
 	// Then
 	assert.Equal(t, uint16(0xB), vm.ProgramCounter)
 }
-

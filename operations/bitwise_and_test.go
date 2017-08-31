@@ -1,9 +1,9 @@
 package operations
 
 import (
+	"chip8/system"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"chip8/system"
 )
 
 func TestBitwiseAndParser_Matches(t *testing.T) {
@@ -46,9 +46,9 @@ func TestBitwiseAndOp_String(t *testing.T) {
 func TestBitwiseAndOp_Execute(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	vm.Registers[0x3] = 0xBF   // 1011 1111
-	vm.Registers[0x6] = 0x76   // 0111 0110
-	expected := byte(0x36)     // 0011 0110
+	vm.Registers[0x3] = 0xBF // 1011 1111
+	vm.Registers[0x6] = 0x76 // 0111 0110
+	expected := byte(0x36)   // 0011 0110
 
 	op := BitwiseAndOp{
 		register1: 0x3,

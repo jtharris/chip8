@@ -12,7 +12,7 @@ func init() {
 }
 
 // OpenGLDisplay is a Display for rendering a virtual machine to an OpenGL window
-type OpenGLDisplay struct {}
+type OpenGLDisplay struct{}
 
 // Start the render loop, terminating when the window is closed
 func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
@@ -73,7 +73,7 @@ func (d *OpenGLDisplay) render(vm *VirtualMachine) {
 
 // Hardcoded mapping of qwerty keys to the CHIP8 hex keys - the index of the list (0-15) is the hex key being mapped
 // So, for example, hex key 0xA holds the state of the "Z" key
-var keyMap = []glfw.Key {glfw.KeyX, glfw.Key1, glfw.Key2, glfw.Key3, glfw.KeyQ, glfw.KeyW, glfw.KeyE, glfw.KeyA,
+var keyMap = []glfw.Key{glfw.KeyX, glfw.Key1, glfw.Key2, glfw.Key3, glfw.KeyQ, glfw.KeyW, glfw.KeyE, glfw.KeyA,
 	glfw.KeyS, glfw.KeyD, glfw.KeyZ, glfw.KeyC, glfw.Key4, glfw.KeyR, glfw.KeyF, glfw.KeyV,
 }
 

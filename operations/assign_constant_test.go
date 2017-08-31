@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestAssignConstantParser_Matches(t *testing.T) {
@@ -23,7 +23,7 @@ func TestAssignConstantParser_CreateOp(t *testing.T) {
 
 	op := AssignConstantOp{
 		register: 0xD,
-		value: 0x15,
+		value:    0x15,
 	}
 
 	assert.Equal(t, op, parser.createOp(0x7D15))
@@ -32,7 +32,7 @@ func TestAssignConstantParser_CreateOp(t *testing.T) {
 func TestAssignConstantOp_String(t *testing.T) {
 	op := AssignConstantOp{
 		register: 0x3,
-		value: 0xFE,
+		value:    0xFE,
 	}
 
 	assert.Equal(t, "V3 = FE", op.String())
@@ -45,7 +45,7 @@ func TestAssignConstantOp_Execute(t *testing.T) {
 
 	op := AssignConstantOp{
 		register: 0x3,
-		value: 0xFE,
+		value:    0xFE,
 	}
 
 	// When

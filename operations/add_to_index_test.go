@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestAddToIndexParser_Matches(t *testing.T) {
@@ -23,13 +23,13 @@ func TestAddToIndexParser_DoesNotMatchLast(t *testing.T) {
 
 func TestAddToIndexParser_CreateOp(t *testing.T) {
 	parser := addToIndexParser{}
-	expected := AddToIndexOp{ register: 0xC }
+	expected := AddToIndexOp{register: 0xC}
 
 	assert.Equal(t, expected, parser.createOp(0xFC1E))
 }
 
 func TestAddToIndexOp_String(t *testing.T) {
-	op := AddToIndexOp{ register: 0x7 }
+	op := AddToIndexOp{register: 0x7}
 
 	assert.Equal(t, "I += V7", op.String())
 }
@@ -37,7 +37,7 @@ func TestAddToIndexOp_String(t *testing.T) {
 func TestAddToIndexOp_Execute(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	op := AddToIndexOp{ register: 0x4 }
+	op := AddToIndexOp{register: 0x4}
 
 	vm.IndexRegister = 0x2A8
 	vm.Registers[0x4] = 0xA

@@ -1,27 +1,28 @@
 package operations
 
 import (
-	"fmt"
 	"chip8/system"
+	"fmt"
 )
 
 // Parser for AddConstantOp
-type addConstantParser struct {}
+type addConstantParser struct{}
+
 func (p addConstantParser) matches(opcode system.OpCode) bool {
-	return opcode >> 12 == 0x7
+	return opcode>>12 == 0x7
 }
 
 func (p addConstantParser) createOp(opcode system.OpCode) Operation {
 	return AddConstantOp{
 		register: byte(opcode & 0x0F00 >> 8),
-		value: byte(opcode),
+		value:    byte(opcode),
 	}
 }
 
 // AddConstantOp - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#7xkk
 type AddConstantOp struct {
 	register byte
-	value byte
+	value    byte
 }
 
 // String returns a text representation of this operation

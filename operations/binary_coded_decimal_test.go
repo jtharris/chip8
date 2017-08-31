@@ -1,9 +1,9 @@
 package operations
 
 import (
+	"chip8/system"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"chip8/system"
 )
 
 func TestBinaryCodedDecimalParser_Matches(t *testing.T) {
@@ -41,7 +41,7 @@ func TestBinaryCodedDecimalOp_String(t *testing.T) {
 func TestBinaryCodedDecimalOp_Execute(t *testing.T) {
 	// Given
 	vm := system.VirtualMachine{}
-	vm.Registers[0xA] = 0xF3   // Binary equivalent is 243
+	vm.Registers[0xA] = 0xF3 // Binary equivalent is 243
 	vm.IndexRegister = 0x28
 
 	op := BinaryCodedDecimalOp{register: 0xA}

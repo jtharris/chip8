@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"chip8/system"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestDumpRegistersParser_Matches(t *testing.T) {
@@ -50,7 +50,7 @@ func TestDumpRegistersOp_Execute(t *testing.T) {
 	vm.Registers[0x1] = 0x0B
 	vm.Registers[0x2] = 0x0C
 	vm.Registers[0x3] = 0x0D
-	vm.Registers[0x4] = 0x04	// Not used
+	vm.Registers[0x4] = 0x04 // Not used
 	vm.IndexRegister = 0x10
 
 	op := DumpRegistersOp{topRegister: 0x3}
