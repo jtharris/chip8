@@ -28,7 +28,7 @@ func TestSoundTimerParser_CreateOp(t *testing.T) {
 func TestSoundTimerOp_String(t *testing.T) {
 	op := SoundTimerOp{register: 0xD}
 
-	assert.Equal(t, "sound_timer = VD", op.String())
+	assert.Equal(t, "ST = VD", op.String())
 }
 
 func TestSoundTimerOp_Execute(t *testing.T) {

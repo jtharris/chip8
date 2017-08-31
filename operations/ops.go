@@ -4,54 +4,59 @@ import (
 	"chip8/system"
 )
 
+// operationParser indicates if it is able to parse a given opcode, and if so, can translate it to an Operation
 type operationParser interface {
 	matches(opcode system.OpCode) bool
 	createOp(opcode system.OpCode) Operation
 }
 
+// Operation encapsulates an instruction for a VirtualMachine
 type Operation interface {
 	String() string
 	Execute(machine *system.VirtualMachine)
 }
 
+// Available operationParsers
 var parsers = []operationParser{
-	clearParser{},
-	returnParser{},
-	gotoParser{},
-	callParser{},
-	ifConstantParser{},
-	ifNotConstantParser{},
-	ifRegisterParser{},
-	assignConstantParser{},
 	addConstantParser{},
-	assignRegisterParser{},
-	bitwiseOrParser{},
-	bitwiseAndParser{},
-	bitwiseXorParser{},
 	addRegisterParser{},
-	subtractRegisterParser{},
-	shiftRightParser{},
-	shiftLeftParser{},
-	reverseSubtractRegisterParser{},
-	setIndexParser{},
-	drawParser{},
-	delayTimerParser{},
-	setToDelayParser{},
-	randomParser{},
-	ifNotKeyParser{},
-	soundTimerParser{},
-	binaryCodedDecimalParser{},
-	loadRegistersParser{},
-	spriteLocationParser{},
 	addToIndexParser{},
-	ifKeyParser{},
-	ifNotRegisterParser{},
+	assignConstantParser{},
+	assignRegisterParser{},
+	binaryCodedDecimalParser{},
+	bitwiseAndParser{},
+	bitwiseOrParser{},
+	bitwiseXorParser{},
+	callParser{},
+	clearParser{},
+	delayTimerParser{},
+	drawParser{},
 	dumpRegistersParser{},
 	getKeyParser{},
+	gotoParser{},
+	ifConstantParser{},
+	ifKeyParser{},
+	ifNotConstantParser{},
+	ifNotKeyParser{},
+	ifNotRegisterParser{},
+	ifRegisterParser{},
+	loadRegistersParser{},
+	randomParser{},
+	returnParser{},
+	reverseSubtractRegisterParser{},
+	setIndexParser{},
+	setToDelayParser{},
+	shiftLeftParser{},
+	shiftRightParser{},
+	soundTimerParser{},
+	spriteLocationParser{},
+	subtractRegisterParser{},
 }
 
+// Cache for OpCode -> Operation mapping, lazily evaluated
 var ops = make(map[system.OpCode] Operation)
 
+// CreateOperation is a factory to create the correct Operation for the given OpCode
 func CreateOperation(opcode system.OpCode) Operation {
 	op, ok := ops[opcode]
 

@@ -5,6 +5,7 @@ import (
 	"chip8/system"
 )
 
+// Parser for BinaryCodedDecimalOop
 type binaryCodedDecimalParser struct {}
 func(p binaryCodedDecimalParser) matches(opcode system.OpCode) bool {
 	return opcode >> 12 == 0xF && byte(opcode) == 0x33
@@ -16,13 +17,17 @@ func(p binaryCodedDecimalParser) createOp(opcode system.OpCode) Operation {
 	}
 }
 
+// BinaryCodedDecimalOp - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#Fx33
 type BinaryCodedDecimalOp struct {
 	register byte
 }
+
+// String returns a text representation of this operation
 func(o BinaryCodedDecimalOp) String() string {
 	return fmt.Sprintf("BCD(V%X)", o.register)
 }
 
+// Execute this operation on the given virtual machine
 func(o BinaryCodedDecimalOp) Execute(vm *system.VirtualMachine) {
 	val := vm.Registers[o.register]
 

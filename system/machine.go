@@ -19,19 +19,19 @@ func(o OpCode) String() string {
 // VirtualMachine the core CHIP8 architecture, containing memory, registers, input, and pixel data
 // For reference, see:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.0
 type VirtualMachine struct {
-	Memory [4096]byte
-	Registers [16]byte
+	Memory [4096]byte		// http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.1
+	Registers [16]byte		// Abbreviated as V0-VF:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
 	Stack []uint16
 
-	ProgramCounter uint16
-	IndexRegister uint16
+	ProgramCounter uint16	// Abbreviated as PC
+	IndexRegister uint16	// Abbreviated as I:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2
 
-	DelayTimer byte
-	SoundTimer byte
+	DelayTimer byte			// Abbreviated as DT
+	SoundTimer byte			// Abbreviated as ST
 
-	// Represents the state of key presses
+	// Represents the state of key presses  - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.3
 	Keyboard [16]bool
-	// The state of the pixels, rendered to a display
+	// The state of the pixels, rendered to a display  - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
 	Pixels [32]uint64
 
 	// Should the machine be running
@@ -40,7 +40,6 @@ type VirtualMachine struct {
 
 // NewVirtualMachine creates a new virtual machine, loading fonts at the start of the memory space
 func NewVirtualMachine() VirtualMachine {
-	// TODO:  Explain memory layout here...
 	vm := VirtualMachine{}
 	vm.Running = true
 
@@ -83,7 +82,7 @@ func (vm *VirtualMachine) IncrementPC() {
 	vm.ProgramCounter += 2
 }
 
-// DecrementTimers decrements delay timer and the sound timer, if they are positive
+// DecrementTimers decrements delay timer and the sound timer if they are positive
 func (vm *VirtualMachine) DecrementTimers() {
 	if vm.DelayTimer > 0 {
 		vm.DelayTimer--
