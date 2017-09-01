@@ -5,13 +5,13 @@ import (
 	"time"
 )
 
-// TerminalDisplay is a Display for rendering a virtual machine to a terminal using termbox
-type TerminalDisplay struct {
+// TerminalRenderer renders a virtual machine to a terminal using termbox
+type TerminalRenderer struct {
 	shouldQuit bool
 }
 
 // Start the render loop, terminating when the escape key is pressed
-func (t *TerminalDisplay) Start(vm *VirtualMachine) {
+func (t *TerminalRenderer) Start(vm *VirtualMachine) {
 	err := termbox.Init()
 
 	if err != nil {
@@ -20,20 +20,20 @@ func (t *TerminalDisplay) Start(vm *VirtualMachine) {
 
 	for !t.shouldQuit {
 		t.updateKeys(vm)
-		t.render(vm)
+		t.render(&vm.Pixels)
 		time.Sleep(time.Millisecond)
 	}
 
 	termbox.Close()
 }
 
-func (t *TerminalDisplay) render(vm *VirtualMachine) {
+func (t *TerminalRenderer) render(d *Display) {
 	termbox.Clear(termbox.ColorBlack, termbox.ColorBlack)
 	drawBorder()
 
 	for col := 0; col < 64; col++ {
-		for row := range vm.Pixels {
-			if vm.PixelSetAt(col, row) {
+		for row := range d {
+			if d.PixelSetAt(col, row) {
 				termbox.SetCell(col+1, row+1, ' ', termbox.ColorGreen, termbox.ColorGreen)
 			}
 		}
@@ -56,7 +56,7 @@ func drawBorder() {
 
 var termKeyMap = []rune{'x', '1', '2', '3', 'q', 'w', 'e', 'a', 's', 'd', 'z', 'c', '4', 'r', 'f', 'v'}
 
-func (t *TerminalDisplay) updateKeys(vm *VirtualMachine) {
+func (t *TerminalRenderer) updateKeys(vm *VirtualMachine) {
 	// Gather up all the keyboard events for 2ms then exit
 	time.AfterFunc(time.Millisecond*2, termbox.Interrupt)
 

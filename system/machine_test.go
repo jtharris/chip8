@@ -74,15 +74,15 @@ func TestVirtualMachine_DecrementTimersWhenNonZero(t *testing.T) {
 	assert.Equal(t, byte(0x02), vm.SoundTimer)
 }
 
-func TestVirtualMachine_PixelSetAt(t *testing.T) {
+func TestDisplay_PixelSetAt(t *testing.T) {
 	// Given
-	vm := NewVirtualMachine()
-	vm.Pixels[15] = 0xF
+	display := Display{}
+	display[15] = 0xF
 
 	// Then
-	assert.True(t, vm.PixelSetAt(63, 15))
-	assert.True(t, vm.PixelSetAt(60, 15))
+	assert.True(t, display.PixelSetAt(63, 15))
+	assert.True(t, display.PixelSetAt(60, 15))
 
-	assert.False(t, vm.PixelSetAt(60, 16))
-	assert.False(t, vm.PixelSetAt(59, 15))
+	assert.False(t, display.PixelSetAt(60, 16))
+	assert.False(t, display.PixelSetAt(59, 15))
 }

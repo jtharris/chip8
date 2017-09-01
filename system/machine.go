@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-// Display is responsible for rendering pixels and handling user input
-type Display interface {
+// Renderer is responsible for rendering pixels and handling user input
+type Renderer interface {
 	Start(vm *VirtualMachine)
 }
 
@@ -14,6 +14,15 @@ type OpCode uint16
 
 func (o OpCode) String() string {
 	return fmt.Sprintf("%04X", uint16(o))
+}
+
+// Display represents a 64x32 pixel matrix
+type Display [32]uint64
+
+// PixelSetAt determines if the pixel located at coordinate (x, y) is on
+func (d *Display) PixelSetAt(x int, y int) bool {
+	columnFilter := uint64(1) << (63 - uint(x))
+	return d[y]&columnFilter == columnFilter
 }
 
 // VirtualMachine the core CHIP8 architecture, containing memory, registers, input, and pixel data
@@ -31,8 +40,8 @@ type VirtualMachine struct {
 
 	// Represents the state of key presses  - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.3
 	Keyboard [16]bool
-	// The state of the pixels, rendered to a display  - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
-	Pixels [32]uint64
+	// The state of the pixels - http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
+	Pixels Display
 
 	// Should the machine be running
 	Running bool
@@ -93,11 +102,6 @@ func (vm *VirtualMachine) DecrementTimers() {
 	}
 }
 
-// PixelSetAt determines if the pixel located at coordinate (x, y) is on
-func (vm *VirtualMachine) PixelSetAt(x int, y int) bool {
-	columnFilter := uint64(1) << (63 - uint(x))
-	return vm.Pixels[y]&columnFilter == columnFilter
-}
 
 // CHIP-8 Font Set.
 // See here for reference:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4

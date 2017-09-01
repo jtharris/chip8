@@ -20,14 +20,14 @@ func main() {
 	if *printOps {
 		printOpcodes(vm)
 	} else {
-		var display system.Display
+		var renderer system.Renderer
 		if *useTerm {
-			display = &system.TerminalDisplay{}
+			renderer = &system.TerminalRenderer{}
 		} else {
-			display = &system.OpenGLDisplay{}
+			renderer = &system.OpenGLRenderer{}
 		}
 
-		run(vm, display)
+		run(vm, renderer)
 	}
 }
 
@@ -46,11 +46,11 @@ func read(fileName string) *system.VirtualMachine {
 	return &vm
 }
 
-// Start the three main loops:  machine, timers, and display
-func run(vm *system.VirtualMachine, display system.Display) {
+// Start the three main loops:  machine, timers, and renderer
+func run(vm *system.VirtualMachine, renderer system.Renderer) {
 	go startMachine(vm)
 	go startTimers(vm)
-	display.Start(vm)
+	renderer.Start(vm)
 }
 
 func startTimers(vm *system.VirtualMachine) {

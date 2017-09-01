@@ -11,11 +11,11 @@ func init() {
 	runtime.LockOSThread()
 }
 
-// OpenGLDisplay is a Display for rendering a virtual machine to an OpenGL window
-type OpenGLDisplay struct{}
+// OpenGLRenderer renders a virtual machine to an OpenGL window
+type OpenGLRenderer struct{}
 
 // Start the render loop, terminating when the window is closed
-func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
+func (o *OpenGLRenderer) Start(vm *VirtualMachine) {
 	err := glfw.Init()
 
 	if err != nil {
@@ -43,8 +43,8 @@ func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 
 	// Main GL loop
 	for !window.ShouldClose() {
-		d.updateKeys(window, vm)
-		d.render(vm)
+		o.updateKeys(window, vm)
+		o.render(&vm.Pixels)
 		window.SwapBuffers()
 		glfw.PollEvents()
 	}
@@ -53,12 +53,12 @@ func (d *OpenGLDisplay) Start(vm *VirtualMachine) {
 }
 
 // Render the current state of pixels in the virtual machine
-func (d *OpenGLDisplay) render(vm *VirtualMachine) {
+func (o *OpenGLRenderer) render(d *Display) {
 	gl.Clear(gl.COLOR_BUFFER_BIT)
 	gl.Begin(gl.QUADS)
 	for col := 0; col < 64; col++ {
-		for row := range vm.Pixels {
-			if vm.PixelSetAt(col, row) {
+		for row := range d {
+			if d.PixelSetAt(col, row) {
 				c := int32(col)
 				r := int32(row)
 				gl.Vertex2i(c, r)
@@ -78,7 +78,7 @@ var keyMap = []glfw.Key{glfw.KeyX, glfw.Key1, glfw.Key2, glfw.Key3, glfw.KeyQ, g
 }
 
 // Update the state of the input key map on the virtual machine
-func (d *OpenGLDisplay) updateKeys(window *glfw.Window, vm *VirtualMachine) {
+func (o *OpenGLRenderer) updateKeys(window *glfw.Window, vm *VirtualMachine) {
 	for hex, input := range keyMap {
 		vm.Keyboard[hex] = window.GetKey(input) == glfw.Press
 	}
