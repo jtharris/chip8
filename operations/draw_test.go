@@ -79,3 +79,42 @@ func TestDrawOp_ExecuteFlipped(t *testing.T) {
 	// Since there were pixels flipped from 'on' to 'off', make sure VF is set
 	assert.Equal(t, byte(1), vm.Registers[0xF])
 }
+
+func TestDrawOp_ExecuteWrapHorizontal(t *testing.T) {
+	// Given
+	op := DrawOp{xRegister: 0x0, yRegister: 0x1, height: 0x5}
+	vm := system.NewVirtualMachine() // Create vm with font data in memory
+	vm.Registers[0x0] = 0x3E
+	vm.Registers[0x1] = 0x2
+	vm.IndexRegister = 0x00 // Render the '0' character starting at memory slot 0 (0 * 5)
+
+	// When
+	op.Execute(&vm)
+
+	// Then
+	assert.Equal(t, uint64(0xC000000000000003), vm.Pixels[2])
+	assert.Equal(t, uint64(0x4000000000000002), vm.Pixels[3])
+	assert.Equal(t, uint64(0x4000000000000002), vm.Pixels[4])
+	assert.Equal(t, uint64(0x4000000000000002), vm.Pixels[5])
+	assert.Equal(t, uint64(0xC000000000000003), vm.Pixels[6])
+}
+
+func TestDrawOp_ExecuteWrapVertical(t *testing.T) {
+	// Given
+	op := DrawOp{xRegister: 0x0, yRegister: 0x1, height: 0x5}
+	vm := system.NewVirtualMachine() // Create vm with font data in memory
+	vm.Registers[0x0] = 0x0
+	vm.Registers[0x1] = 0x1E
+	vm.IndexRegister = 0x00 // Render the '0' character starting at memory slot 0 (0 * 5)
+
+	// When
+	op.Execute(&vm)
+
+	// Then
+	assert.Equal(t, uint64(0xF000000000000000), vm.Pixels[0x1E])
+	assert.Equal(t, uint64(0x9000000000000000), vm.Pixels[0x1F])
+	// Wraped around the top part
+	assert.Equal(t, uint64(0x9000000000000000), vm.Pixels[0x0])
+	assert.Equal(t, uint64(0x9000000000000000), vm.Pixels[0x1])
+	assert.Equal(t, uint64(0xF000000000000000), vm.Pixels[0x2])
+}

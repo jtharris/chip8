@@ -3,6 +3,7 @@ package operations
 import (
 	"chip8/system"
 	"fmt"
+	"math/bits"
 )
 
 // Parser for DrawOp
@@ -39,21 +40,10 @@ func (o DrawOp) Execute(vm *system.VirtualMachine) {
 	yPos := vm.Registers[o.yRegister]
 
 	for row := byte(0); row < o.height; row++ {
-		y := yPos + row
-
-		// Edge case where sprites can be drawn off the screen?
-		if int(y) >= len(vm.Pixels) {
-			return
-		}
+		y := (yPos + row) % 32
 
 		sprite := uint64(vm.Memory[vm.IndexRegister+uint16(row)])
-		offset := 56 - int(xPos)
-
-		if offset > 0 {
-			sprite = sprite << uint(offset)
-		} else {
-			sprite = sprite >> uint(-offset)
-		}
+		sprite = bits.RotateLeft64(sprite, 56 - int(xPos))
 
 		// If any 'on' pixels are going to be flipped, then set
 		// VF to 1 per the spec
