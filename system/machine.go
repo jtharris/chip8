@@ -102,7 +102,6 @@ func (vm *VirtualMachine) DecrementTimers() {
 	}
 }
 
-
 // CHIP-8 Font Set.
 // See here for reference:  http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.4
 var fontSet = [80]byte{

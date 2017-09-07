@@ -1,8 +1,8 @@
 package operations
 
 import (
-	"github.com/jtharris/chip8/system"
 	"fmt"
+	"github.com/jtharris/chip8/system"
 )
 
 // Parser for IfNotRegisterOp

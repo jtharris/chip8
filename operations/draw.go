@@ -1,8 +1,8 @@
 package operations
 
 import (
-	"github.com/jtharris/chip8/system"
 	"fmt"
+	"github.com/jtharris/chip8/system"
 	"math/bits"
 )
 
@@ -43,7 +43,7 @@ func (o DrawOp) Execute(vm *system.VirtualMachine) {
 		y := (yPos + row) % 32
 
 		sprite := uint64(vm.Memory[vm.IndexRegister+uint16(row)])
-		sprite = bits.RotateLeft64(sprite, 56 - int(xPos))
+		sprite = bits.RotateLeft64(sprite, 56-int(xPos))
 
 		// If any 'on' pixels are going to be flipped, then set
 		// VF to 1 per the spec

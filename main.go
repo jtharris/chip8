@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/jtharris/chip8/operations"
-	"github.com/jtharris/chip8/system"
 	"flag"
 	"fmt"
+	"github.com/jtharris/chip8/operations"
+	"github.com/jtharris/chip8/system"
 	"io/ioutil"
-	"time"
 	"os"
+	"time"
 )
 
 // This is the main entrypoint of the program.  Parse any command line flags, read the game binary, and start the
