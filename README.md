@@ -20,7 +20,7 @@ used:
 
 ## Installation
 
-The `go get` command will fetch the source and dependencies, compile the binary
+The `go get` command will fetch the source and dependencies and compile the binary:
 
 ```bash
 > go get github.com/jtharris/chip8
@@ -68,7 +68,7 @@ to a QWERTY keyboard by using 4x4 block of keys from 1 in the upper left corner
 to V in the lower right corner.
 
 The first value is the hex value, and in parentheses is the QWERY key.  Games
-that you will find on the internet typically don't have any sort of documentation,
+that you will find on the internet typically don't have any sort of instructions,
 so initially you will probably just have to bang around on these until you find
 the buttons that work.
 
