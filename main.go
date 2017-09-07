@@ -1,12 +1,13 @@
 package main
 
 import (
-	"chip8/operations"
-	"chip8/system"
+	"github.com/jtharris/chip8/operations"
+	"github.com/jtharris/chip8/system"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"time"
+	"os"
 )
 
 // This is the main entrypoint of the program.  Parse any command line flags, read the game binary, and start the
@@ -16,7 +17,14 @@ func main() {
 	useTerm := flag.Bool("terminal", false, "Use the terminal renderer instead of opengl.")
 	flag.Parse()
 
-	vm := read(flag.Args()[0])
+	fileName := flag.Arg(0)
+
+	if fileName == "" {
+		fmt.Println("A game file is required as the first argument.")
+		os.Exit(1)
+	}
+
+	vm := read(fileName)
 	if *printOps {
 		printOpcodes(vm)
 	} else {
@@ -83,6 +91,8 @@ func startMachine(vm *system.VirtualMachine) {
 }
 
 func printOpcodes(vm *system.VirtualMachine) {
+	fmt.Println("MEM - OPCD:  Description")
+	fmt.Println("=============================================")
 	for mem := vm.ProgramCounter; mem < uint16(len(vm.Memory)); mem += 2 {
 		opcode := vm.OpCodeAt(mem)
 

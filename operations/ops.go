@@ -1,7 +1,7 @@
 package operations
 
 import (
-	"chip8/system"
+	"github.com/jtharris/chip8/system"
 )
 
 // operationParser indicates if it is able to parse a given opcode, and if so, can translate it to an Operation

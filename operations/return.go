@@ -1,7 +1,7 @@
 package operations
 
 import (
-	"chip8/system"
+	"github.com/jtharris/chip8/system"
 )
 
 // Parser for ReturnOp
