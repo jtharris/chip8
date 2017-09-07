@@ -31,8 +31,17 @@ The `go get` command will fetch the source and dependencies, compile the binary
 To run a game, specify the file as the first argument:
 
 ```bash
-> chip8 games/BRIX
+> chip8 my-games/BRIX
 ```
+
+This repo has a few games from the internet, but there are likely plenty more out there.  Here is how to play BRIX:
+
+```bash
+ > wget https://github.com/jtharris/chip8/raw/master/games/BRIX
+ > chip8 BRIX
+```
+
+For this game, the Q and E keys move left and right.
 
 #### Render modes
 
